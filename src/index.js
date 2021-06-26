@@ -16,7 +16,11 @@ import { onPopularRender } from './js/home-button';
 import '/js/local-storage-API';
 import './js/spinner';
 import './js/log-in';
+
+import './js/team';
+
 import PaginationMyLibrary from './js/pagination-for-my-library';
+
 
 export const ApiService = new FilmsApiService();
 export const paginationMyLibrary = new PaginationMyLibrary();
