@@ -32,7 +32,6 @@ export let library = [];
 let arrOfIds = [];
 
 function addArrOfIds(nameIds) {
-
   return  arrOfIds = localStorage.getItem(`${nameIds}`) ? JSON.parse(localStorage.getItem(`${nameIds}`)) : [];
 
 }
@@ -92,7 +91,7 @@ async function renderWatched(e) {
 
     const localArr = addArrOfIds();
 
-    startPagination(localArr);
+    paginationMyLibrary.startPagination(localArr);
     cardsList.classList.add('animation');
 }
 
@@ -110,18 +109,17 @@ async function renderQueue(e) {
     cardsList.classList.add('animation');
 }
 
-async function addLibrary(film) {
-   await library.push(film);
-   return await film;
-}
+// async function addLibrary(film) {
+//    await library.push(film);
+//    return await film;
+// }
 
 function onMyLibraryButtonClick(e) {
     const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')]
-
     paginationMyLibrary.startPagination(allIds);
 }
 
-let splitItem; //* test
+// let splitItem; //* test
 
 
 //! Удаление id не работает
@@ -159,31 +157,31 @@ function removeAnimation() {
 
 
 //* pagination
-var pag3;
-var itemsPerPage = 20;
-export function makePagin() {
-    // console.log(library)
-     pag3 = new pagination(document.getElementsByClassName('pagination')[0],
-  {
-      currentPage: 1,		// number
-      totalItems: library.length,       // number
-      itemsPerPage: 20,    // number
-      stepNum: 2,			// number
-      onInit: renderLibrary	        // function
-  });
-   pag3.onPageChanged(renderLibrary);
-}
+// var pag3;
+// var itemsPerPage = 20;
+// export function makePagin() {
+//     // console.log(library)
+//      pag3 = new pagination(document.getElementsByClassName('pagination')[0],
+//   {
+//       currentPage: 1,		// number
+//       totalItems: library.length,       // number
+//       itemsPerPage: 20,    // number
+//       stepNum: 2,			// number
+//       onInit: renderLibrary	        // function
+//   });
+//    pag3.onPageChanged(renderLibrary);
+// }
 
-function renderLibrary(page) {
-    refs.cardsList.innerHTML = renderNextLibrary(page);
-}
+// function renderLibrary(page) {
+//     refs.cardsList.innerHTML = renderNextLibrary(page);
+// }
 
-function renderNextLibrary(currentPage) {
-        let template = "";
-    for (let i = (currentPage - 1) * itemsPerPage; i < (currentPage * itemsPerPage) && i < library.length; i++) {
+// function renderNextLibrary(currentPage) {
+//         let template = "";
+//     for (let i = (currentPage - 1) * itemsPerPage; i < (currentPage * itemsPerPage) && i < library.length; i++) {
 
-        template += filmCards(library[i]);
-    }
+//         template += filmCards(library[i]);
+//     }
     
-    return template;
-}
+//     return template;
+// }
