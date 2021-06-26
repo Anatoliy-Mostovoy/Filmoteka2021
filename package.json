@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://Ereyzer.github.io/filmotekatest",
+  "homepage": "https://Anatoliy-Mostovoy.github.io/Filmoteka2021",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /filmotekatest/"
+    "build": "parcel build src/*.html --public-url /Filmoteka2021/"
   },
   "repository": {
     "type": "git",
