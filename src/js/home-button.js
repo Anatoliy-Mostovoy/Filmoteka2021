@@ -1,7 +1,7 @@
 import { refs } from './variables';
 import filmCards from '../templates/home.hbs';
 import { ApiService } from '../index';
-
+import {renderMyLibrary} from './local-storage-API';
 import { showSpinner } from './spinner';
 // import pagination1 from './maryska';
 var pagination = require('./maryska');
@@ -44,9 +44,7 @@ function onMyLibraryButtonClick(e) {
 
   refs.nothSearch.classList.add('nothing-search__hidden');
 
-  if (refs.cardsList.innerHTML = '') {
-    refs.cardsList.innerHTML = '';
-  }
+  renderMyLibrary(e)
 }
 
 function onHomeButtonClick(e) {
