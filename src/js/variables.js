@@ -75,13 +75,7 @@ export const refs = {
   //GoIt Students
   linkStudents: document.querySelector('.footer-link'),
 
-  //modal team
-  backdropTeam: document.querySelector('.backdrop-team-modal'),
-
-  //close modal team
-  closeTeam: document.querySelector('.team-modal-close-button'),
-
-  //* player
+    //* player
   player: document.getElementById('player-container'),
   //*team
  
