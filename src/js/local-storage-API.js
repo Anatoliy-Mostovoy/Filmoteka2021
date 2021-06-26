@@ -15,8 +15,10 @@ let currentButtonSwitch = null;
 
 function testWhatButtonIsIt(e) {
     if (e.target.dataset.modal === 'watched') {
+        e.target.textContent = 'remove to watched';
         return addToWatched(e);
     }else if (e.target.dataset.modal === 'queue') {
+        e.target.textContent = 'remove to queue';
         return addToQueue(e);
     }else{return;}
 }
@@ -99,4 +101,16 @@ function addCurrentOnButton(e) {
 function removeCurrentOnButton(e) {
     if(currentButtonSwitch === null)return;
     currentButtonSwitch.classList.remove('current-header-btn');
+}
+
+
+
+function disabledButtonModal(e) {
+    if (e.target.dataset.modal === 'watched') {
+        e.target.textContent = 'remove to watched';
+        return addToWatched(e);
+    }else if (e.target.dataset.modal === 'queue') {
+        e.target.textContent = 'remove to queue';
+        return addToQueue(e);
+    }else{return;}
 }
