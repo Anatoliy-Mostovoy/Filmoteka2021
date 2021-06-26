@@ -1,4 +1,4 @@
-<div class='modal-poster-block' data-action="{{id}}">
+<div class='modal-poster-block'>
   <div class="startTrailer" data-play="trailer"></div>
   <img src='https://image.tmdb.org/t/p/w300{{poster_path}}' alt='{{title}}' class='modal-poster' />
 </div>
@@ -40,12 +40,12 @@
 
   <ul class='modal-button-list'>
     <li class='modal-btn-item'>
-      <button class='modal-btn js-watched' type='button'>
+      <button class='modal-btn js-watched' type='button' data-modal="watched"  data-action="{{id}}">
         add to Watched
       </button>
     </li>
     <li class='modal-btn-item'>
-      <button class='modal-btn js-queue' type='button'>
+      <button class='modal-btn js-queue' type='button' data-modal="queue"  data-action="{{id}}">
         add to queue
       </button>
     </li>
