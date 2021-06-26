@@ -18,6 +18,7 @@ import './js/spinner';
 import './js/log-in';
 export const ApiService = new FilmsApiService();
 // import './js/fb';
+import './js/autentification'
 // import './js/autentification'
 // console.log(ApiService.filmPopular);
 export default ApiService.filmPopular
