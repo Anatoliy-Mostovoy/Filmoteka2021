@@ -16,12 +16,18 @@ import { onPopularRender } from './js/home-button';
 import '/js/local-storage-API';
 import './js/spinner';
 import './js/log-in';
+import PaginationMyLibrary from './js/pagination-for-my-library';
+
 export const ApiService = new FilmsApiService();
+export const paginationMyLibrary = new PaginationMyLibrary();
+
+
 // import './js/fb';
 // import './js/autentification'
 // console.log(ApiService.filmPopular);
-export default ApiService.filmPopular
+// export default ApiService.filmPopular
 onPopularRender();
+// import './js/pagination-for-my-library';
 
 
 

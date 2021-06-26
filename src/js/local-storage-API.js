@@ -5,115 +5,121 @@ import filmCards from '../templates/mylibrary.hbs';
 
 import { checkIfEmptyLibrary } from './header-observer';
 
-var pagination = require('./maryska');
+// var pagination = require('./maryska');
+// import PaginationMyLibrary from './pagination-for-my-library';
+// const paginationMyLibrary = new PaginationMyLibrary();
+// console.log(paginationMyLibrary);
+import {paginationMyLibrary}from '../index';
 
-let library = [];
+
 
 //* экземпляр класса API
 const newFilmsApi = new FilmsApiService();
 
 const { bodyEl, cardsList, myLibraryButton, wBtn, qBtn, homeButton} = refs;
-
-bodyEl.addEventListener('click', getId); //* поиск id фильма
+ //* поиск id фильма
 bodyEl.addEventListener('click', addToWatched); //* поиск и добавление в Watched
 bodyEl.addEventListener('click', addToQueue); //* поиск и добавление в Queue
 wBtn.addEventListener('click', renderWatched);
 qBtn.addEventListener('click', renderQueue);
 homeButton.addEventListener('click', removeAnimation);
+myLibraryButton.addEventListener('click', onMyLibraryButtonClick)
 
-
-let liId = null;
+// let liId = null;
 let localStorageWatched = localStorage.getItem('watched') ? localStorage.getItem('watched') : ''; //* local storage watched
 let localStorageQueue = localStorage.getItem('queue') ? localStorage.getItem('queue') : '';  //* local storage queue
-let arr = [];
+export let library = [];
+let arrOfIds = [];
+
+function addArrOfIds(nameIds) {
+
+  return  arrOfIds = localStorage.getItem(`${nameIds}`) ? JSON.parse(localStorage.getItem(`${nameIds}`)) : [];
+
+}
+
 
 function getId(ev) {
-    if (ev.target.className !== 'card-container js-card-container') {
-        return;
-    }
-    liId = ev.target.parentNode.getAttribute('data-action');
-    console.log(liId);
+    // console.log(ev.target.getAttribute('data-action'))
+    return ev.target.getAttribute('data-action');
 }
 
 //* добавляем id фильма в WATCHED (localStorageWatched)
 function addToWatched(e) {
-    if (e.target.className !== 'modal-btn js-watched') {
+    const nameIds = 'watched';
+    if (e.target.dataset.modal !== 'watched') {
+        return;
+    }
+    const liId = getId(e)
+    addArrOfIds(nameIds)
+    if (arrOfIds.includes(liId)) {
         return;
     }
 
-    if (localStorage.getItem('watched')) {  //* проверка на уникальность
-        if (localStorage.getItem('watched').split(',').includes(liId)) {
-            return;
-        }
-    }
-
-    localStorageWatched += localStorage.getItem('watched') ? ',' + liId : liId;
-    localStorage.setItem('watched', localStorageWatched);
+    arrOfIds.push(liId);
+    localStorage.setItem('watched', JSON.stringify(arrOfIds));
 }
 
 //* добавляем id фильма в QUEUE (localStorageQueue)
 function addToQueue(e) {
-    if (e.target.className !== 'modal-btn js-queue') {
+    const nameIds = 'queue'
+    if (e.target.dataset.modal !== 'queue') {
+        return;
+    }
+    console.log(e.target.dataset.action);
+    const liId = getId(e)
+    addArrOfIds(nameIds)
+    if (arrOfIds.includes(liId)) {
         return;
     }
 
-    if (localStorage.getItem('queue')) {  //* проверка на уникальность
-        if (localStorage.getItem('queue').split(',').includes(liId)) {
-            return;
-        }
-    }
+    arrOfIds.push(liId);
+    localStorage.setItem('queue', JSON.stringify(arrOfIds));
+}
 
-    localStorageQueue += localStorage.getItem('queue') ? ',' + liId : liId;
-    localStorage.setItem('queue', localStorageQueue);
+function startPagination(arrayIds) {
+    library =[];
+    const promises = arrayIds.map(el => {
+        return  newFilmsApi.fetchInformationAboutFilm(el).then(addLibrary)
+
+    });
+    Promise.all(promises).then(makePagin);
 }
 
 //* Функция рендера списка Watched
 async function renderWatched(e) {
     cardsList.innerHTML = "";
-    arr = [];
     e.preventDefault();
 
+    const localArr = addArrOfIds();
 
-    const localArr = localStorage.getItem('watched').split(',');
-    const promise = new Promise(()=>{
-        return newFilmsApi.fetchInformationAboutFilm().then(addLibrary)
-    })
-    const promises = localArr.map(el => {
-        return  newFilmsApi.fetchInformationAboutFilm(el).then(addLibrary)
-
-    });
-    Promise.all(promises).then(makePagin);
+    startPagination(localArr);
     cardsList.classList.add('animation');
 }
 
 
 //* Функция рендера списка Queue
 async function renderQueue(e) {
+    console.log(localStorage.getItem('queue').split(','))
     cardsList.innerHTML = "";
-    arr = [];
+
     e.preventDefault();
     const localArr = localStorage.getItem('queue').split(',');
 
-    await  localArr.forEach(el => {
-        newFilmsApi.movieId = el;
-
-        newFilmsApi.fetchInformationAboutFilm()
-
-            .then(addLibrary)
-
-    });
-
+    startPagination(localArr);
 
     cardsList.classList.add('animation');
 }
 
 async function addLibrary(film) {
-    console.log(film);
    await library.push(film);
-   console.log(library);
    return await film;
 }
 
+function onMyLibraryButtonClick(e) {
+    const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')]
+
+    paginationMyLibrary.startPagination(allIds);
+}
 
 let splitItem; //* test
 
@@ -155,8 +161,8 @@ function removeAnimation() {
 //* pagination
 var pag3;
 var itemsPerPage = 20;
-function makePagin() {
-    console.log(library)
+export function makePagin() {
+    // console.log(library)
      pag3 = new pagination(document.getElementsByClassName('pagination')[0],
   {
       currentPage: 1,		// number
@@ -167,8 +173,6 @@ function makePagin() {
   });
    pag3.onPageChanged(renderLibrary);
 }
-// renderLibrary()
-// pag3.onPageChanged(renderNextLibrary);
 
 function renderLibrary(page) {
     refs.cardsList.innerHTML = renderNextLibrary(page);
