@@ -19,9 +19,8 @@ function openModalFilm(evt) {
   }
 
   const movieId = evt.target.parentNode.dataset.action;
-  console.log(movieId)
+
   ApiService.fetchInformationAboutFilm(movieId).then(response => {
-    console.log(response)
     refs.modalFilmInfo.innerHTML = modalFilmTpl(response);
     //* ref на оверлей для запуске трейлера
     refs.startTrailer = document.querySelector('[data-play="trailer"]');
