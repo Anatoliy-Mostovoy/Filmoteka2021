@@ -114,12 +114,12 @@ export function onClikBtnFilmModal(evt) {                  /*функция пр
 //   alert('фильм успешно добавлен');
 // };
 
-async function updateUserLibrary(id, onBtn) {
-  const userId = firebase.auth().currentUser.uid;
-  // // //console.log(identified);
-  try {
-    const queryDataLibrary = await firebase.database().ref(`users/${userId}/${onBtn}`).once('value')
-    const dataLibrary = queryDataLibrary.val()
+// async function updateUserLibrary(id, onBtn) {
+//   const userId = firebase.auth().currentUser.uid;
+//   // // //console.log(identified);
+//   try {
+//     const queryDataLibrary = await firebase.database().ref(`users/${userId}/${onBtn}`).once('value')
+//     const dataLibrary = queryDataLibrary.val()
 
   
 //     if (dataLibrary[0] === '') {
@@ -152,33 +152,4 @@ async function updateUserLibrary(id, onBtn) {
 //     //   }
 //     // };
 
-//   } catch (error) {
-//     console.log(error.message)
-//     throw error
-//   }
-// };
 
-
-// export { identif };
-
-// // --------------------------------------
-// // --------------------------------------------------
-// // слушатель firebase
-// firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     const uid = {
-//       userid: user.uid,
-//     }
-//     console.log(firebase.auth());
-//     // console.log(uid);
-//     // const userId = firebase.auth().currentUser.uid;
-//     // console.log(userId);
-//   } else {
-//     // User is signed out
-//     // ...
-//     console.log('вы не авторизованы');
-//   }
-// });
-// // --------------------------------------------------
