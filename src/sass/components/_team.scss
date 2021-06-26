@@ -24,7 +24,7 @@
 }
 
 .backdrop-team {
-  padding: 10px 20px;
+  padding: 20px 20px;
   color: #8bc0ec;
   text-shadow: #8bc0ec 1px 1px 1px;
 }
@@ -48,7 +48,9 @@
   overflow: hidden;
 
   text-align: center;
-  border: 2px solid #9ecaed;
+  //border: 2px solid #9ecaed;
+  border-top: 2px solid #9ecaed;
+  border-bottom: 2px solid #9ecaed;
   margin-bottom: 2px;
   opacity: 1;
   @media screen and (min-width: 450px) {
@@ -62,7 +64,7 @@
   }
   &:hover,
   &:focus {
-    box-shadow: -1px 1px 5px -1px #1917e1;
+    box-shadow: 1px 1px 5px 1px #9ecaed;
   }
 }
 

@@ -1,7 +1,14 @@
 import { refs } from './variables';
-const { backdropTeam,  bodyEl, teamClose} = refs;
+const { backdropTeam,  bodyEl, teamClose, linkStudents} = refs;
 
 backdropTeam.addEventListener('click', closeCard);
+linkStudents.addEventListener('click', closeModal); //открыть модалку
+
+function closeModal() {
+
+  backdropTeam.classList.remove('backdrop-hidden');
+}
+
 
 
 function closeCard(ev) {
@@ -12,18 +19,17 @@ function closeCard(ev) {
         return;
     }    
         
-    if (current) {        
+  if (current) {
         ev.target.classList.remove('expand');
         current.classList.remove('expand');
       if (ev.target !== current) {
         ev.target.classList.add('expand');
         }
-            
+           
     } else {
         ev.target.classList.add('expand');
-       
-    }
-  backdropClick(ev);
+    backdropClick(ev);
+  }
 }
 
 teamClose.addEventListener('click', closeModalTeam);
