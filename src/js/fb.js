@@ -1,3 +1,4 @@
+
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
@@ -31,10 +32,12 @@ export { database };
 const { myLibraryButton, wBtn, qBtn, cardsList, bodyEl} = refs;
 // const { formSignup, formSigning } = refs;
 
+
 // formSigning.addEventListener('submit', onLogin);
 // formSignup.addEventListener('submit', onRegister);
 
 // bodyEl.addEventListener('click', getIdFilm);
+
 myLibraryButton.addEventListener('click', onClickMyLibrary);
 wBtn.addEventListener('click', onClickBtnWatched);
 qBtn.addEventListener('click', onClickBtnQueue);
@@ -117,59 +120,44 @@ async function updateUserLibrary(id, onBtn) {
   try {
     const queryDataLibrary = await firebase.database().ref(`users/${userId}/${onBtn}`).once('value')
     const dataLibrary = queryDataLibrary.val()
+
   
-    if (dataLibrary[0] === '') {
-      dataLibrary.splice(0, 1, id);
-      const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary);
-      // writeInBase(dataLibrary, id, onBtn);
-      return;
-    } else {
-      dataLibrary.push(id);
-      const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary)
-    };
+//     if (dataLibrary[0] === '') {
+//       dataLibrary.splice(0, 1, id);
+//       const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary);
+//       // writeInBase(dataLibrary, id, onBtn);
+//       return;
+//     } else {
+//       dataLibrary.push(id);
+//       const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary)
+//     };
 
-    // проверка нет ли в другой очереди такого фильма  - ИЗМЕНИТЬ НА ПРОВЕРКУ КЛАССА КНОПКИ!!!
-    // Если вторая кнопка не активна ---- считать очередь, и удалить нужный id из єтой очереди
-    // if (onBtn === 'wathed') {
-    //   if (dataLibrary.queue.findIndex(id) === -1) {
-    //     return;
-    //   } else {
-    //     dataLibrary.queue.splice(dataLibrary.queue.findIndex(id), 1);
-    //     const updateDataList = await firebase.database().ref(`users/${userId}/queue`).set(dataLibrary);
-    //   }
-    // };
+//     // проверка нет ли в другой очереди такого фильма  - ИЗМЕНИТЬ НА ПРОВЕРКУ КЛАССА КНОПКИ!!!
+//     // Если вторая кнопка не активна ---- считать очередь, и удалить нужный id из єтой очереди
+//     // if (onBtn === 'wathed') {
+//     //   if (dataLibrary.queue.findIndex(id) === -1) {
+//     //     return;
+//     //   } else {
+//     //     dataLibrary.queue.splice(dataLibrary.queue.findIndex(id), 1);
+//     //     const updateDataList = await firebase.database().ref(`users/${userId}/queue`).set(dataLibrary);
+//     //   }
+//     // };
 
-    // if (onBtn === 'queue') {
-    //   if (dataLibrary.watched.findIndex(id) === -1) {
-    //     return;
-    //   } else {
-    //     dataLibrary.queue.splice(dataLibrary.watched.findIndex(id), 1);
-    //     const updateDataList = await firebase.database().ref(`users/${userId}/watched`).set(dataLibrary);
-    //   }
-    // };
+//     // if (onBtn === 'queue') {
+//     //   if (dataLibrary.watched.findIndex(id) === -1) {
+//     //     return;
+//     //   } else {
+//     //     dataLibrary.queue.splice(dataLibrary.watched.findIndex(id), 1);
+//     //     const updateDataList = await firebase.database().ref(`users/${userId}/watched`).set(dataLibrary);
+//     //   }
+//     // };
 
-  } catch (error) {
-    console.log(error.message)
-    throw error
-  }
-};
-
-// btnOut.addEventListener('click', onBtnOut);
-// // функция выхода из системы 
-// function onBtnOut() {
-//   // FirebaseAuth.getInstance().signOut();
-//   //   Intent intent = new Intent(getActivity(), LoginActivity.class);
-//   // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//   // startActivity(intent);
-//   firebase.auth().signOut()
-//     .then(() => {
-//       console.log('Signed Out');
-//       document.body.classList.remove('body-color');
-//     })
-//     .catch(e => {
-//       console.error('Sign Out Error', e);
-//     });
+//   } catch (error) {
+//     console.log(error.message)
+//     throw error
+//   }
 // };
+
 
 // export { identif };
 
