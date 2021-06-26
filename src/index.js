@@ -16,6 +16,7 @@ import { onPopularRender } from './js/home-button';
 import '/js/local-storage-API';
 import './js/spinner';
 import './js/log-in';
+import './js/team';
 export const ApiService = new FilmsApiService();
 // import './js/fb';
 // import './js/autentification'

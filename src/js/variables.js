@@ -83,4 +83,8 @@ export const refs = {
 
   //* player
   player: document.getElementById('player-container'),
+  //*team
+ 
+  backdropTeam: document.querySelector('.backdrop-team'),
+  teamClose: document.querySelector('.team-close'),
 };
