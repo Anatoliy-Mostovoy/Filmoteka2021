@@ -23,6 +23,7 @@ export const paginationMyLibrary = new PaginationMyLibrary();
 
 
 // import './js/fb';
+import './js/autentification'
 // import './js/autentification'
 // console.log(ApiService.filmPopular);
 // export default ApiService.filmPopular

@@ -1,5 +1,5 @@
 import { refs } from "./variables";
-// import { identif } from './fb'
+// import { identif } from './autentification'
 // console.log('Oksana', identif);
 
 const { annoymentModal, closeAnnoyment, overlay } = refs;
