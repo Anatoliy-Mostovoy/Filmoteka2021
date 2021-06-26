@@ -13,22 +13,14 @@ function closeModal() {
 
 function closeCard(ev) {
   backdropTeam.removeEventListener('click', closeCard);
-  ev.preventDefault();
- 
-      const current = document.querySelector('.default.expand');
-    if (ev.target.classList.contains('team-name')) {
+
+  if (ev.target.classList.contains('team-name')) {
         return;
     }    
         
-  if (current) {
-        ev.target.classList.remove('expand');
-    current.classList.remove('expand');
-    
-      if (ev.target !== current) {
-        ev.target.classList.add('expand');
-        backdropTeam.addEventListener('click', closeCard);
-        }
-           
+  if (document.querySelector('.default.expand')) {     
+    document.querySelector('.default.expand').classList.remove('expand');
+    backdropTeam.addEventListener('click', closeCard);
     } else {
     ev.target.classList.add('expand');
     backdropTeam.addEventListener('click', closeCard);
