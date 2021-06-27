@@ -8,8 +8,10 @@ import { refs } from "./variables"
 
 import { database } from './fb'
 
+import { closeModal } from './annoyment'
+
 let identif = false;
-const { formSignup, formSigning } = refs;
+const { formSignup, formSigning, annoymentModal, backdropLogIn, closeLoginWrap } = refs;
 
 // const resetPass = document.querySelector('.js-forgot-pass');
 
@@ -52,6 +54,7 @@ async function registration(email, password, userName) {
     
     alert(`Вы успешно прошли регистрацию. Добро пожаловать ${data.user.email}, ${userName}`);   /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
     identif = true;
+    backdropLogIn.classList.add('backdrop-hidden');
 
     // проверить local-storage есть ли там что-то, если есть вытащить и записать в базу
     const currentUser = {
@@ -75,6 +78,9 @@ async function login(email, password) {
     // console.log(data.user);
     alert(`Добро пожаловать ${data.user.email}`);          /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
     identif = true;
+    backdropLogIn.classList.add('backdrop-hidden');
+    closeModal();
+    
   } catch (error) {
     // console.log(error.message);
     alert(error.message);                  /* заменить на нотификашку*/
@@ -96,26 +102,27 @@ async function newUser(userId, newUser) {
 }
 // --------------------------------------------------
 
-// слушатель firebase
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    // const uid = {
-    //   userid: user.uid,
-    // };
+// // слушатель firebase
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+      // annoymentModal.classList.add('cat-hidden');
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/firebase.User
+//     // const uid = {
+//     //   userid: user.uid,
+//     // };
 
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-    //   console.log('displayName', displayName);
-    //   console.log('email', email);
-  } else {
-    // User is signed out
-    // ...
-    console.log('вы не авторизованы');
-  }
-});
-// --------------------------------------------------
+//     const displayName = user.displayName;
+//     const email = user.email;
+//     const photoURL = user.photoURL;
+//     const emailVerified = user.emailVerified;
+//     //   console.log('displayName', displayName);
+//     //   console.log('email', email);
+//   } else {
+//     // User is signed out
+//     // ...
+//     console.log('вы не авторизованы');
+//   }
+// });
+// // --------------------------------------------------
 export { identif };

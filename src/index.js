@@ -26,7 +26,7 @@ export const ApiService = new FilmsApiService();
 export const paginationMyLibrary = new PaginationMyLibrary();
 
 
-// import './js/fb';
+import './js/fb';
 import './js/autentification'
 // import './js/autentification'
 // console.log(ApiService.filmPopular);
