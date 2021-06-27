@@ -45,6 +45,8 @@ function onMyLibraryButtonClick(e) {
   refs.nothSearch.classList.add('nothing-search__hidden');
 
   renderMyLibrary(e)
+
+  refs.cardsList.setAttribute('data-list', 'library');
 }
 
 function onHomeButtonClick(e) {
@@ -62,6 +64,7 @@ function onHomeButtonClick(e) {
   refs.header.classList.remove('header-library');
 
   onPopularRender();
+
 }
 
 async function searchGenres(response) {
@@ -73,7 +76,7 @@ async function searchGenres(response) {
         // console.log(film);
       addGenres(film);
     });
-    // console.log(films)
+    refs.cardsList.setAttribute('data-list', 'home');
     return response.results;
   });
 }
