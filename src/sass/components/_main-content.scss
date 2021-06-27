@@ -1,6 +1,3 @@
-
-
-
 body {
   background-color: $body-bg-color;
   // дав сюди колір щоб відділити сторінку
@@ -19,6 +16,8 @@ body {
 }
 
 .main-content-list {
+  position: relative;
+  min-height: 80vh;
   margin-top: 230px;
 
   @media screen and (min-width: $tablet) {
@@ -42,7 +41,7 @@ body {
       height: 100%;
 
       opacity: 0;
-      background:linear-gradient(#f00 4%, #f00 10%,  #fff);
+      background: linear-gradient(#f00 4%, #f00 10%, #fff);
 
       border-radius: 5px;
 
@@ -116,7 +115,6 @@ body {
   }
 }
 
-
 /* .repo__technology_fork::before {
     width: 11px;
     height: 16px;
@@ -136,13 +134,13 @@ body {
   text-align: center;
   justify-content: center;
 }
-@media screen and (min-width:768px){
- #pagDiv{
+@media screen and (min-width: 768px) {
+  #pagDiv {
     padding-top: 50px;
   }
 }
-@media screen and (min-width:1024px){
- #pagDiv{
+@media screen and (min-width: 1024px) {
+  #pagDiv {
     padding-top: 46px;
   }
 }
