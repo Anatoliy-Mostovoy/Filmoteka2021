@@ -38,12 +38,13 @@ function removeClassByobserver() {
 }
 
 // checkIfEmptyLibrary
-export function checkIfEmptyLibrary() {
-  if (localStorage.getItem('watched') === null && localStorage.getItem('queue') === null) {
-    buttonBlockHeader.classList.add('header-hidden');
-    navigationHeader.classList.add('mini-header');
-    header.classList.add('empty-library');
-  } else {
+export function checkIfEmptyLibrary () {
+    if (localStorage.getItem('watched') === null && localStorage.getItem('queue')=== null) {
+        buttonBlockHeader.classList.add('header-hidden');
+        navigationHeader.classList.add('mini-header');
+        header.classList.add('empty-library');
+} else {
+
     if (buttonBlockHeader.classList.contains('header-hidden')) {
       buttonBlockHeader.classList.remove('header-hidden');
       navigationHeader.classList.remove('mini-header');
