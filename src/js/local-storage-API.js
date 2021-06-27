@@ -2,7 +2,7 @@ import { refs } from './variables';
 import {paginationMyLibrary}from '../index';
 //* экземпляр класса API
 
-const { bodyEl, myLibraryButton, wBtn, qBtn} = refs;
+const { bodyEl, cardsList, wBtn, qBtn} = refs;
  //* поиск id фильма
 bodyEl.addEventListener('click', testWhatButtonIsIt);
 wBtn.addEventListener('click', renderWatched);
@@ -12,6 +12,7 @@ qBtn.addEventListener('click', renderQueue);
 export let library = [];
 let arrOfIds = [];
 let currentButtonSwitch = null;
+const currentButtonClass = 'current-header-btn';
 
 function testWhatButtonIsIt(e) {
     const element = e.target
@@ -54,7 +55,7 @@ async function renderWatched(e) {
 
     const nameIds = 'watched';
 
-    
+    refs.cardsList.setAttribute('data-list', `${nameIds}`);
     const localArr = addArrOfIds(nameIds);
 
     paginationMyLibrary.startPagination(localArr);
@@ -68,25 +69,25 @@ async function renderQueue(e) {
     addCurrentOnButton(e)
 
     const nameIds = 'queue';
-
+    refs.cardsList.setAttribute('data-list', `${nameIds}`);
     const localArr = addArrOfIds(nameIds);
     paginationMyLibrary.startPagination(localArr);
 }
 
-export function renderMyLibrary(e) {
-    removeCurrentOnButton(e)
+export function renderMyLibrary() {
+    removeCurrentOnButton()
 
     const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')];
     paginationMyLibrary.startPagination(allIds);
 }
 
 function addCurrentOnButton(e) {
-    e.target.classList.add('current-header-btn');
+    e.target.classList.add(currentButtonClass);
     currentButtonSwitch = e.target;
 }
-function removeCurrentOnButton(e) {
+function removeCurrentOnButton() {
     if(currentButtonSwitch === null)return;
-    currentButtonSwitch.classList.remove('current-header-btn');
+    currentButtonSwitch.classList.remove(currentButtonClass);
 }
 
 export function addOrRemoveOnOpenModal(action) {
@@ -94,22 +95,23 @@ export function addOrRemoveOnOpenModal(action) {
     const testOnLocal = JSON.parse(localStorage.getItem(`${action}`)).includes(element.getAttribute('data-action'));
     element.textContent = testOnLocal ? `remove to ${action}` : `add to ${action}`;
     if(testOnLocal){
-        element.classList.add('current-header-btn')
+        element.classList.add(currentButtonClass)
        }else{
-           element.classList.remove('current-header-btn') 
+           element.classList.remove(currentButtonClass) 
        };
 }
 
 
 function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
-        if(!element.classList.contains('current-header-btn')){
-             element.classList.add('current-header-btn')
+
+        if(!element.classList.contains(currentButtonClass)){
+             element.classList.add(currentButtonClass)
              addToLocalStorageWatchedOrQueue(element, action)
              const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
-            //  action === 'watched' ? 'queue' : 'watched';
+            removeElement.classList.remove(currentButtonClass)
              removeFromLocalStorage(removeElement, actionRemove);
             }else{
-                element.classList.remove('current-header-btn');
+                element.classList.remove(currentButtonClass);
                 removeFromLocalStorage(element, action);
             };
 }
@@ -123,9 +125,16 @@ function removeFromLocalStorage(element, action) {
         return;
     }
     storageElement.splice(searchId, 1);
-    return addToLocaleStorage(storageElement, action);
+    addToLocaleStorage(storageElement, action);
+
+    if (cardsList.dataset.list === "library" || cardsList.dataset.list === "home") {
+        return;
+    };
+    paginationMyLibrary.startPagination(storageElement);
+
 }
 
 function addToLocaleStorage(array, action) {
     localStorage.setItem(action, JSON.stringify(array));
+
 }
