@@ -364,8 +364,64 @@
 .nothing-search__hidden {
   display: none;
 }
+// USER
 
-// .current-header-btn {
-//   background-color: $mark-color;
-//   border-color: $mark-color;
-// }
+.header-user {
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  position: absolute;
+  right: 20px;
+  bottom: 5px;
+  font-size: 10px;
+  color: rgb(90, 87, 87);
+  cursor: pointer;
+  @media screen and (min-width: $tablet) {
+    right: 75px;
+    bottom: 20px;
+    font-size: 12px;
+  }
+  &:hover {
+    color: $mark-color;
+  }
+  &:hover .header-user-cover,
+  &:focus .header-user-cover {
+    border: 2px solid $mark-color;
+  }
+  &:hover .icon-user,
+  &:focus .icon-user {
+    fill: $mark-color;
+  }
+}
+
+.header-user-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgb(90, 87, 87);
+}
+.icon-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+  fill: rgb(90, 87, 87);
+}
+
+.header-user.js-reserved-name {
+  color: $mark-color;
+  & .header-user-cover {
+    border: 2px solid $mark-color;
+  }
+  & .icon-user {
+    fill: $mark-color;
+  }
+}

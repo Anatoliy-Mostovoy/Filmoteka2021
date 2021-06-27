@@ -2,11 +2,14 @@ import { refs } from './variables';
 const { backdropTeam,  bodyEl, teamClose, linkStudents} = refs;
 
 backdropTeam.addEventListener('click', closeCard);
-linkStudents.addEventListener('click', closeModal); 
+linkStudents.addEventListener('click', openModal);
 
-function closeModal() {
-  linkStudents.removeEventListener('click', closeModal);
+
+function openModal() {
+  linkStudents.removeEventListener('click', openModal);
+ 
   backdropTeam.classList.remove('backdrop-hidden');
+  
 }
 
 
@@ -34,7 +37,8 @@ function closeModalTeam(ev) {
   backdropTeam.classList.add('backdrop-hidden');
   backdropTeam.removeEventListener('click', backdropClick);
   window.removeEventListener('keydown', onPressEsc);
-  linkStudents.addEventListener('click', closeModal);
+  linkStudents.addEventListener('click', openModal);
+  
    }
 
 function onPressEsc(evt) {
