@@ -36,17 +36,13 @@ function onSearch(evt) {
 }
 
 function renderCard(data) {
-  console.log(data);  
+
   if (!data.results[0]) {
-    // console.log(data);
     throw new Error('not Exist');
   } else {
     refs.nothSearch.classList.add('nothing-search__hidden');
 
-    // const card = filmTpl(data);
-    // console.log(card);
-    // refs.cardsList.innerHTML = card;
-    console.log(data);
+
     makeFilmsWithGenres(data)
     makePagin(data);
     pag2.onPageChanged(nextSearchPage);

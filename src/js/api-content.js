@@ -16,8 +16,6 @@ export default class FilmsApiService {
       `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${this.searchQuery}&page=${this.page}&include_adult=false`,
     ).then(response => response.json())
       .then((res) => {
-        // this.page += 1;
-        console.log(res);
         return res;
       }).catch(console.log)
       
@@ -33,7 +31,6 @@ export default class FilmsApiService {
       })
       .then(({ results }) => {
         this.page += 1;
-        console.log(results);
         return results;
       });
   }
@@ -48,7 +45,6 @@ export default class FilmsApiService {
         return response.json();
       })
       .then(info => {
-        // console.log(id);
         return info;
       });
   }
@@ -62,11 +58,6 @@ export default class FilmsApiService {
       .then(response => {
         return response.json();
       })
-      // .then(({ results }) => {
-      //   this.page += 1;
-      //   // console.log(results);
-      //   return results;
-      // });
 }
 
 async searchGenres(res) {

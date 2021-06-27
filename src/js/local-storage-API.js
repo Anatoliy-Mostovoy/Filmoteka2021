@@ -1,185 +1,147 @@
 import { refs } from './variables';
-import FilmsApiService from './api-content';
+import { paginationMyLibrary } from '../index';
 
-import filmCards from '../templates/mylibrary.hbs';
-
-import { checkIfEmptyLibrary } from './header-observer';
-
-var pagination = require('./maryska');
-
-let library = [];
-
+import {showSpinner} from './spinner'
 //* экземпляр класса API
-const newFilmsApi = new FilmsApiService();
 
-const { bodyEl, cardsList, myLibraryButton, wBtn, qBtn, homeButton} = refs;
-
-bodyEl.addEventListener('click', getId); //* поиск id фильма
-bodyEl.addEventListener('click', addToWatched); //* поиск и добавление в Watched
-bodyEl.addEventListener('click', addToQueue); //* поиск и добавление в Queue
+const { bodyEl, cardsList, wBtn, qBtn} = refs;
+ //* поиск id фильма
+bodyEl.addEventListener('click', testWhatButtonIsIt);
 wBtn.addEventListener('click', renderWatched);
 qBtn.addEventListener('click', renderQueue);
-homeButton.addEventListener('click', removeAnimation);
+//myLibraryButton.addEventListener('click', onMyLibraryButtonClick)
+
+export let library = [];
+let arrOfIds = [];
+let currentButtonSwitch = null;
+const currentButtonClass = 'current-header-btn';
+
+function testWhatButtonIsIt(e) {
+    const element = e.target
+    if (element.dataset.modal === 'watched') { 
+        return addOrRemoveTestOnButtonModal(element, 'watched', 'queue');
+    }else if (element.dataset.modal === 'queue') {
+        return addOrRemoveTestOnButtonModal(element, 'queue', 'watched');
+    }else{return;}
+}
+
+function addArrOfIds(nameIds) {
+  return  arrOfIds = localStorage.getItem(`${nameIds}`) ? JSON.parse(localStorage.getItem(`${nameIds}`)) : [];
+
+}
 
 
-let liId = null;
-let localStorageWatched = localStorage.getItem('watched') ? localStorage.getItem('watched') : ''; //* local storage watched
-let localStorageQueue = localStorage.getItem('queue') ? localStorage.getItem('queue') : '';  //* local storage queue
-let arr = [];
-
-function getId(ev) {
-    if (ev.target.className !== 'card-container js-card-container') {
-        return;
-    }
-    liId = ev.target.parentNode.getAttribute('data-action');
-    console.log(liId);
+function getId(element) {
+    return element.getAttribute('data-action');
 }
 
 //* добавляем id фильма в WATCHED (localStorageWatched)
-function addToWatched(e) {
-    if (e.target.className !== 'modal-btn js-watched') {
+function addToLocalStorageWatchedOrQueue(element, action) {
+    element.textContent = `remove to ${action}`;
+    const nameIds = action;
+    const liId = getId(element)
+    addArrOfIds(nameIds)
+    if (arrOfIds.includes(liId)) {
         return;
     }
 
-    if (localStorage.getItem('watched')) {  //* проверка на уникальность
-        if (localStorage.getItem('watched').split(',').includes(liId)) {
-            return;
-        }
-    }
-
-    localStorageWatched += localStorage.getItem('watched') ? ',' + liId : liId;
-    localStorage.setItem('watched', localStorageWatched);
-}
-
-//* добавляем id фильма в QUEUE (localStorageQueue)
-function addToQueue(e) {
-    if (e.target.className !== 'modal-btn js-queue') {
-        return;
-    }
-
-    if (localStorage.getItem('queue')) {  //* проверка на уникальность
-        if (localStorage.getItem('queue').split(',').includes(liId)) {
-            return;
-        }
-    }
-
-    localStorageQueue += localStorage.getItem('queue') ? ',' + liId : liId;
-    localStorage.setItem('queue', localStorageQueue);
+    arrOfIds.push(liId);
+    addToLocaleStorage(arrOfIds, action);
 }
 
 //* Функция рендера списка Watched
 async function renderWatched(e) {
-    cardsList.innerHTML = "";
-    arr = [];
+    showSpinner();
+
     e.preventDefault();
+    removeCurrentOnButton(e);
+    addCurrentOnButton(e);
 
+    const nameIds = 'watched';
 
-    const localArr = localStorage.getItem('watched').split(',');
-    const promise = new Promise(()=>{
-        return newFilmsApi.fetchInformationAboutFilm().then(addLibrary)
-    })
-    const promises = localArr.map(el => {
-        return  newFilmsApi.fetchInformationAboutFilm(el).then(addLibrary)
+    refs.cardsList.setAttribute('data-list', `${nameIds}`);
+    const localArr = addArrOfIds(nameIds);
 
-    });
-    Promise.all(promises).then(makePagin);
-    cardsList.classList.add('animation');
+    paginationMyLibrary.startPagination(localArr);
 }
 
 
 //* Функция рендера списка Queue
 async function renderQueue(e) {
-    cardsList.innerHTML = "";
-    arr = [];
+    showSpinner();
+
     e.preventDefault();
-    const localArr = localStorage.getItem('queue').split(',');
+    removeCurrentOnButton(e)
+    addCurrentOnButton(e)
 
-    await  localArr.forEach(el => {
-        newFilmsApi.movieId = el;
-
-        newFilmsApi.fetchInformationAboutFilm()
-
-            .then(addLibrary)
-
-    });
-
-
-    cardsList.classList.add('animation');
+    const nameIds = 'queue';
+    refs.cardsList.setAttribute('data-list', `${nameIds}`);
+    const localArr = addArrOfIds(nameIds);
+    paginationMyLibrary.startPagination(localArr);
 }
 
-async function addLibrary(film) {
-    console.log(film);
-   await library.push(film);
-   console.log(library);
-   return await film;
+export function renderMyLibrary() {
+    showSpinner();
+    removeCurrentOnButton()
+
+    const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')];
+    paginationMyLibrary.startPagination(allIds);
 }
 
+function addCurrentOnButton(e) {
+    e.target.classList.add(currentButtonClass);
+    currentButtonSwitch = e.target;
+}
+function removeCurrentOnButton() {
+    if(currentButtonSwitch === null)return;
+    currentButtonSwitch.classList.remove(currentButtonClass);
+}
 
-let splitItem; //* test
-
-
-//! Удаление id не работает
-// function deleteWatchedFilm() {
-//     if (localStorage.getItem('watched').split(',').includes(liId)) {
-//         let localStorageArr = localStorage.getItem('watched').split(',');
-//         localStorageArr = localStorageArr.filter(id=> id!==liId)
-//         console.log(localStorageArr);
-
-
-//         // localStorage.getItem('watched').split(',').forEach(function(el, index){
-//         //     if (el === liId) { //! как найти liId через forEach?
-//         //         localStorage.getItem('watched').split(',').splice(index, 1);
-//         //         console.log('proshlo!', localStorage.getItem('watched').split(','))
-//         //     }
-//         // });
-//     }
-// }
-
-
-
-// //* удаление id из очереди
-// function deleteQueueFilm() {
-//   localStorage.removeItem(key);
-//   //* вызов функции изменения названия кнопки
-// }
-
-
-//* удаление класса анимации, чтоб она повторялась
-function removeAnimation() {
-    cardsList.classList.remove('animation');
+export function addOrRemoveOnOpenModal(action) {
+    const element = document.querySelector(`[data-modal="${action}"]`);
+    const testOnLocal = JSON.parse(localStorage.getItem(`${action}`)).includes(element.getAttribute('data-action'));
+    element.textContent = testOnLocal ? `remove to ${action}` : `add to ${action}`;
+    if(testOnLocal){
+        element.classList.add(currentButtonClass)
+       }else{
+           element.classList.remove(currentButtonClass) 
+       };
 }
 
 
+function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
 
-
-//* pagination
-var pag3;
-var itemsPerPage = 20;
-function makePagin() {
-    console.log(library)
-     pag3 = new pagination(document.getElementsByClassName('pagination')[0],
-  {
-      currentPage: 1,		// number
-      totalItems: library.length,       // number
-      itemsPerPage: 20,    // number
-      stepNum: 2,			// number
-      onInit: renderLibrary	        // function
-  });
-   pag3.onPageChanged(renderLibrary);
-}
-// renderLibrary()
-// pag3.onPageChanged(renderNextLibrary);
-
-function renderLibrary(page) {
-    refs.cardsList.innerHTML = renderNextLibrary(page);
+        if(!element.classList.contains(currentButtonClass)){
+             element.classList.add(currentButtonClass)
+             addToLocalStorageWatchedOrQueue(element, action)
+             const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
+            removeElement.classList.remove(currentButtonClass)
+             removeFromLocalStorage(removeElement, actionRemove);
+            }else{
+                element.classList.remove(currentButtonClass);
+                removeFromLocalStorage(element, action);
+            };
 }
 
-function renderNextLibrary(currentPage) {
-        let template = "";
-    for (let i = (currentPage - 1) * itemsPerPage; i < (currentPage * itemsPerPage) && i < library.length; i++) {
-
-        template += filmCards(library[i]);
+function removeFromLocalStorage(element, action) {
+    element.textContent = `add to ${action}`;
+    const storageElement = addArrOfIds(action);
+    const elementId = element.dataset.action;
+    const searchId = storageElement.indexOf(elementId);
+    if (searchId === -1) {
+        return;
     }
-    
-    return template;
+    storageElement.splice(searchId, 1);
+    addToLocaleStorage(storageElement, action);
+
+    if (cardsList.dataset.list === "library" || cardsList.dataset.list === "home") {
+        return;
+    };
+    paginationMyLibrary.startPagination(storageElement);
+
+}
+
+function addToLocaleStorage(array, action) {
+    localStorage.setItem(action, JSON.stringify(array));
+
 }

@@ -293,7 +293,7 @@
   cursor: pointer;
 }
 
-.header-btn .current {
+.header-btn .watch .current {
   background-color: $mark-color;
   border-color: $mark-color;
 }
@@ -364,3 +364,8 @@
 .nothing-search__hidden {
   display: none;
 }
+
+// .current-header-btn {
+//   background-color: $mark-color;
+//   border-color: $mark-color;
+// }
