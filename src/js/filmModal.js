@@ -4,6 +4,7 @@ import { ApiService } from '../index';
 import { onClikBtnFilmModal } from './fb'
 //* імпортую функцію для старта відео
 import {openTrailer} from './treyler';
+import {addOrRemoveOnOpenModal} from './local-storage-API';
 
 refs.cardsList.addEventListener('click', openModalFilm);
 
@@ -25,6 +26,10 @@ function openModalFilm(evt) {
     //* ref на оверлей для запуске трейлера
     refs.startTrailer = document.querySelector('[data-play="trailer"]');
     refs.startTrailer.addEventListener('click', openTrailer)
+
+// *Кнопки "Watched" та "Queue"
+    addOrRemoveOnOpenModal('watched');
+    addOrRemoveOnOpenModal('queue')
   });
 
   refs.bodyEl.classList.add('scroll-hidden');

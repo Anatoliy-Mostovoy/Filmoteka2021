@@ -1,9 +1,9 @@
 import { refs } from './variables';
 import filmCards from '../templates/home.hbs';
 import { ApiService } from '../index';
-import {renderMyLibrary} from './local-storage-API';
+import { renderMyLibrary } from './local-storage-API';
 import { showSpinner } from './spinner';
-// import pagination1 from './maryska';
+import { checkIfEmptyLibrary } from './header-observer';
 var pagination = require('./maryska');
 console.log('МАРИСЬКИ ПРАЦЮЄ');
 
@@ -28,11 +28,9 @@ refs.homeButton.addEventListener('click', onHomeButtonClick);
 refs.logo.addEventListener('click', onHomeButtonClick);
 
 function onMyLibraryButtonClick(e) {
+  // checkIfEmptyLibrary();
   e.preventDefault();
   showSpinner();
-  //! ТУТ ТРЕБА УЗГОДИТИ!!!!!!
-  // refs.homeButton.addEventListener('click', onHomeButtonClick);
-  // refs.myLibraryButton.removeEventListener('click', onMyLibraryButtonClick);
 
   refs.myLibraryButton.classList.add('current');
   refs.homeButton.classList.remove('current');
@@ -44,7 +42,9 @@ function onMyLibraryButtonClick(e) {
 
   refs.nothSearch.classList.add('nothing-search__hidden');
 
-  renderMyLibrary(e)
+  renderMyLibrary(e);
+
+  refs.cardsList.setAttribute('data-list', 'library');
 }
 
 function onHomeButtonClick(e) {
@@ -65,83 +65,69 @@ function onHomeButtonClick(e) {
 }
 
 async function searchGenres(response) {
-
   return await ApiService.searchGenres(response.results).then(r => {
     GENRES = r;
     addFilms(response.results);
     response.results.forEach(film => {
-        // console.log(film);
+      // console.log(film);
       addGenres(film);
     });
-    // console.log(films)
+    refs.cardsList.setAttribute('data-list', 'home');
     return response.results;
   });
 }
 
 export async function onPopularRender() {
+  try {
+    const res1 = await ApiService.filmPopular();
 
-     try {
+    makePagin(res1);
+    pag1.onPageChanged(onPopularRenderNext);
 
-        const res1 = await ApiService.filmPopular();
-      
-        makePagin(res1);
-        pag1.onPageChanged(onPopularRenderNext);
-      
-        await makeFilmsWithGenres(res1)
-        // console.log(res1)
-        return await res1
-     } catch (error) {
-         console.log(error);
-     } 
-};
+    await makeFilmsWithGenres(res1);
+    // console.log(res1)
+    return await res1;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-  function render (films) {
-    refs.cardsList.innerHTML = '';
-    refs.cardsList.insertAdjacentHTML('beforeend',filmCards(films))
-    return films;
-};
+function render(films) {
+  refs.cardsList.innerHTML = '';
+  refs.cardsList.insertAdjacentHTML('beforeend', filmCards(films));
+  return films;
+}
 
 export async function makeFilmsWithGenres(response) {
-    try {
-        const res2 = await searchGenres(response);
-        const res4 = await render(films);
-
-
-     } catch (error) {
-         console.log(error);
-     } 
-
+  try {
+    const res2 = await searchGenres(response);
+    const res4 = await render(films);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-async function onPopularRenderNext(page){
+async function onPopularRenderNext(page) {
   try {
-
     const res1 = await ApiService.filmPopular(page);
 
-    await makeFilmsWithGenres(res1)
-
-   } catch (error) {
-       console.log(error);
-   } 
+    await makeFilmsWithGenres(res1);
+  } catch (error) {
+    console.log(error);
+  }
 }
-
 
 //* pagination
 var pag1;
 
-
 function makePagin(respons) {
-
-     pag1 = new pagination(document.getElementsByClassName('pagination')[0],
-  {
-      currentPage: 1,		// number
-      totalItems: respons.total_results,       // number
-      itemsPerPage: 20,    // number
-      stepNum: 1,			// number
+  pag1 = new pagination(document.getElementsByClassName('pagination')[0], {
+    currentPage: 1, // number
+    totalItems: respons.total_results, // number
+    itemsPerPage: 20, // number
+    stepNum: 1, // number
     //   onInit: onPopularRenderNext	        // function
   });
 
-
   return respons;
-
 }
