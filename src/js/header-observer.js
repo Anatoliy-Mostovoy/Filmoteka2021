@@ -46,7 +46,7 @@ function removeClassByobserver() {
 
 // checkIfEmptyLibrary
 export function checkIfEmptyLibrary () {
-     if (!localStorage.getItem('watched') || !localStorage.getItem('queue')) {
+    if (localStorage.getItem('watched') === null && localStorage.getItem('queue')=== null) {
         buttonBlockHeader.classList.add('header-hidden');
         navigationHeader.classList.add('mini-header');
         header.classList.add('empty-library');

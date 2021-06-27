@@ -25,14 +25,14 @@
 }
 
 .backdrop-team {
-  padding: 20px 20px;
-  color: #8bc0ec;
-  text-shadow: #8bc0ec 1px 1px 1px;
+  padding: 10px 20px;
+  color: #ff6b08;
+  text-shadow: #ff6b08 1px 1px 1px;
   @media screen and (min-width: $tablet) {
-    padding: 20px 120px;
+    padding: 30px 120px;
   }
   @media screen and (min-width: $desktop) {
-    padding: 40px 320px;
+    padding: 30px 320px;
   }
 }
 .section-team div {
@@ -55,8 +55,8 @@
 
   text-align: center;
 
-  border-top: 2px solid #9ecaed;
-  border-bottom: 2px solid #9ecaed;
+  border-top: 2px solid #ff6b08;
+  border-bottom: 2px solid #ff6b08;
   margin-bottom: 2px;
   opacity: 1;
   @media screen and (min-width: 450px) {
@@ -70,13 +70,13 @@
   }
   &:hover,
   &:focus {
-    box-shadow: 1px 1px 5px 1px #9ecaed;
+    box-shadow: 1px 1px 5px 1px #ff6b08;
   }
 }
 
 .section-team .default:hover .team-name,
 .section-team .default:focus .team-name {
-  text-shadow: #1917e1 2px 1px 2px;
+  text-shadow: #ff6b08 2px 1px 2px;
 }
 
 .expand.default .default {
@@ -95,7 +95,7 @@
 }
 
 .backdrop-team {
-  background-color: #353535;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
 }
 .link-git {
   margin-top: 40px;
@@ -185,7 +185,7 @@
 .team-name {
   display: inline-flex;
   font-size: 14px;
-  color: #9ecaed;
+  color: #ff6b08;
   pointer-events: none;
 }
 
@@ -194,7 +194,7 @@
 }
 
 .team-close {
-  background-color: #9ecaed;
+  background-color: #ff6b08;
   top: 10px;
   width: 20px;
   height: 20px;
@@ -204,12 +204,12 @@
   @media screen and (min-width: $tablet) {
     width: 30px;
     height: 30px;
-    top: 20px;
-    right: 20px;
+    top: 30px;
+    right: 20vw;
   }
   @media screen and (min-width: $desktop) {
     top: 30px;
-    right: 30px;
+    right: 20vw;
     width: 30px;
     height: 30px;
   }
@@ -217,6 +217,6 @@
   &:focus {
     border-radius: 50%;
     box-shadow: none;
-    background-color: #72b0e4;
+    background-color: #b34c07;
   }
 }

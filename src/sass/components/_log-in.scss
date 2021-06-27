@@ -1,26 +1,53 @@
 .backdrop.backdrop-log-in {
-  padding: 30px 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url('https://xn--c1akah3c.xn--p1acf/uploads/posts/2018-12/1543655915_3144-gifka-matrica.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 2px 2px;
   @media screen and (min-width: $tablet) {
-    padding-top: 40px;
+    padding-top: 10px;
+  }
+  @media screen and (min-width: $desktop) {
+    padding-top: 20px;
   }
 }
 
 .login-wrap {
+  z-index: 1;
   color: #ffffff;
   font: 600 16px/18px 'Open Sans', sans-serif;
   width: 100%;
   margin: auto;
   max-width: 525px;
+  border-radius: 5px;
+  box-shadow: 0 0 1rem 0 rgba(72, 72, 72, 0.2);
   min-height: 670px;
   position: relative;
   text-shadow: rgb(0, 0, 0) 0 0 5px;
+  background: inherit;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgb(117, 117, 117);
+    filter: blur(2px);
+    margin: -20px;
+  }
 }
+
 .login-html {
   width: 100%;
   height: 100%;
   position: absolute;
-  padding: 80px 30px 50px;
-  background-image: url('../images/cinema.jpg');
+  padding: 60px 30px 50px;
+  //background-image: url('../images/cinema.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -79,6 +106,7 @@
 .login-form .label,
 .login-form .input,
 .login-form .button-log-in {
+  background-color: transparent;
   outline: none;
   width: 100%;
   display: block;
@@ -86,11 +114,16 @@
 }
 .login-form .input,
 .login-form .button-log-in {
+  color: $header-text-color;
+  max-width: 350px;
   border: none;
   padding: 15px 20px;
-  border-radius: 25px;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.9);
-  background: $header-text-color;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.9);
+  //background: $header-text-color;
 }
 .login-form .input-password {
   text-security: circle;
@@ -102,6 +135,7 @@
 }
 .login-form .button-log-in {
   background: $mark-color;
+  border-radius: 10px;
   box-shadow: none;
   text-shadow: rgb(0, 0, 0) 0 0 2px;
 }
@@ -160,8 +194,11 @@
 
 .hr {
   height: 2px;
-  margin: 30px 0 30px 0;
+  margin: 5px 0;
   background: radial-gradient(#ff6b08, #ff001b);
+  @media screen and (min-width: $tablet) {
+    margin: 30px 0 30px 0;
+  }
 }
 .foot-lnk {
   text-align: center;
@@ -176,22 +213,21 @@
 }
 
 .group.in-form .input {
-  color: $main-text-color;
+  color: $header-text-color;
   outline: none;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.9);
 }
 
 .in-form .input-password,
 .group.mail-address {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .close-login-wrap {
   position: absolute;
   top: 20px;
   right: 30px;
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,4 +256,17 @@
 .form-signing {
   width: 100%;
   height: 100%;
+}
+
+// @-webkit-keyframes autofill {
+//   0%,
+//   100% {
+//     color: #fff;
+//     background: transparent;
+//     -webkit-box-shadow: 0 0 0px 1000px white inset;
+//   }
+// }
+
+.login-wrap .login-form .input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
 }
