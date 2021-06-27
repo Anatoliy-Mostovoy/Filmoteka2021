@@ -2,6 +2,7 @@
   position: absolute;
   top: 30px;
   left: 50%;
+
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -27,6 +28,12 @@
   padding: 20px 20px;
   color: #8bc0ec;
   text-shadow: #8bc0ec 1px 1px 1px;
+  @media screen and (min-width: $tablet) {
+    padding: 20px 120px;
+  }
+  @media screen and (min-width: $desktop) {
+    padding: 40px 320px;
+  }
 }
 .section-team div {
   border-radius: 3px;
@@ -191,18 +198,18 @@
   top: 10px;
   width: 20px;
   height: 20px;
-  right: 30px;
+  right: 10px;
   padding: 5px;
 
   @media screen and (min-width: $tablet) {
     width: 30px;
     height: 30px;
     top: 20px;
-    right: 50px;
+    right: 20px;
   }
   @media screen and (min-width: $desktop) {
     top: 30px;
-
+    right: 30px;
     width: 30px;
     height: 30px;
   }
