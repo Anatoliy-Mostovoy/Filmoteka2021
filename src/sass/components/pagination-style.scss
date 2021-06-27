@@ -6,7 +6,7 @@
     margin-right: auto;
     margin-top: 40px;
     text-align: center;
-    
+
       @media screen and (min-width: $tablet) {
          margin-top: 50px;
       }
@@ -31,8 +31,7 @@
     cursor: pointer;
 }
 
-.arrowRight, 
-.arrowLeft,
+
 .current.pagNumber,
 .pagNumber,
 .pagDots{
@@ -46,6 +45,11 @@
  .arrowRight, 
  .arrowLeft{
       background: #F7F7F7;
+      &:hover,
+      &:focus{
+        background: #5c5a5a50;
+ 
+      }
  }
 
 .current.pagNumber{
