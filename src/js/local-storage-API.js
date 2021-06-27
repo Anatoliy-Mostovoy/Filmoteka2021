@@ -1,5 +1,7 @@
 import { refs } from './variables';
-import {paginationMyLibrary}from '../index';
+import { paginationMyLibrary } from '../index';
+
+import {showSpinner} from './spinner'
 //* экземпляр класса API
 
 const { bodyEl, cardsList, wBtn, qBtn} = refs;
@@ -49,6 +51,8 @@ function addToLocalStorageWatchedOrQueue(element, action) {
 
 //* Функция рендера списка Watched
 async function renderWatched(e) {
+    showSpinner();
+
     e.preventDefault();
     removeCurrentOnButton(e);
     addCurrentOnButton(e);
@@ -64,6 +68,8 @@ async function renderWatched(e) {
 
 //* Функция рендера списка Queue
 async function renderQueue(e) {
+    showSpinner();
+
     e.preventDefault();
     removeCurrentOnButton(e)
     addCurrentOnButton(e)
@@ -75,6 +81,7 @@ async function renderQueue(e) {
 }
 
 export function renderMyLibrary() {
+    showSpinner();
     removeCurrentOnButton()
 
     const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')];
