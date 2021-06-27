@@ -4,6 +4,7 @@ import { ApiService } from '../index';
 import { onClikBtnFilmModal } from './fb'
 //* імпортую функцію для старта відео
 import {openTrailer} from './treyler';
+import {addOrRemoveOnOpenModal} from './local-storage-API';
 
 refs.cardsList.addEventListener('click', openModalFilm);
 
@@ -27,8 +28,10 @@ function openModalFilm(evt) {
     refs.startTrailer.addEventListener('click', openTrailer)
     //* не намагайтесь зрозуміти
 
-    document.querySelector('[data-modal="watched"]').textContent = JSON.parse(localStorage.getItem('watched')).includes(document.querySelector('[data-modal="watched"]').getAttribute('data-action')) ? 'remove to watched' : 'add to Watched';
-    document.querySelector('[data-modal="queue"]').textContent = JSON.parse(localStorage.getItem('queue')).includes(document.querySelector('[data-modal="queue"]').getAttribute('data-action')) ? 'remove to queue' : 'add to queue';
+    addOrRemoveOnOpenModal('watched');
+    addOrRemoveOnOpenModal('queue')
+  //   document.querySelector('[data-modal="watched"]').textContent = JSON.parse(localStorage.getItem('watched')).includes(document.querySelector('[data-modal="watched"]').getAttribute('data-action')) ? 'remove to watched' : 'add to Watched';
+  //   document.querySelector('[data-modal="queue"]').textContent = JSON.parse(localStorage.getItem('queue')).includes(document.querySelector('[data-modal="queue"]').getAttribute('data-action')) ? 'remove to queue' : 'add to queue';
   });
 
   refs.bodyEl.classList.add('scroll-hidden');
