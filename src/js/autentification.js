@@ -5,6 +5,7 @@ import 'firebase/storage'
 import 'firebase/messaging'
 
 import { refs } from "./variables"
+import { database } from './fb';
 
 // import { database } from './fb'
 

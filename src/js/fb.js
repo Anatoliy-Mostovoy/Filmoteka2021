@@ -85,6 +85,7 @@ export function onClikBtnFilmModal(evt) {                  /*функция пр
 // функция отрисовки MyLibraryDB
 async function renderLibraryDB() {
   const queryDataLibrary = await readUserLibrary()
+  console.log('rtyuiop[]==',queryDataLibrary)
   const dataLibrary = queryDataLibrary.val()
 
   if (dataLibrary.watched[0] == '') {
