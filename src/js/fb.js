@@ -13,6 +13,7 @@ import { renderWatched } from './local-storage-API'
 import { renderQueue } from './local-storage-API'
 
 import { showSpinner } from './spinner';
+import { filmiId } from './f-get-id-film';
 
 // файл конфигурации web app's Firebase
 const firebaseConfig = {
