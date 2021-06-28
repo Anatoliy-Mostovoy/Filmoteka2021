@@ -26,8 +26,9 @@ export const ApiService = new FilmsApiService();
 export const paginationMyLibrary = new PaginationMyLibrary();
 
 
-// import './js/fb';
+import './js/fb';
 import './js/autentification'
+import './js/btn-listeren-q-w'
 // import './js/autentification'
 // console.log(ApiService.filmPopular);
 // export default ApiService.filmPopular
