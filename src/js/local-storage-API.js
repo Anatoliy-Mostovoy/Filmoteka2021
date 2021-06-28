@@ -50,12 +50,12 @@ function addToLocalStorageWatchedOrQueue(element, action) {
 }
 
 //* Функция рендера списка Watched
-async function renderWatched(e) {
-    showSpinner();
+export function renderWatched() {
+    // showSpinner();
 
-    e.preventDefault();
-    removeCurrentOnButton(e);
-    addCurrentOnButton(e);
+    // e.preventDefault();
+    // removeCurrentOnButton(e);
+    // addCurrentOnButton(e);
 
     const nameIds = 'watched';
 
@@ -67,12 +67,12 @@ async function renderWatched(e) {
 
 
 //* Функция рендера списка Queue
-async function renderQueue(e) {
-    showSpinner();
+export function renderQueue() {
+    // showSpinner();
 
-    e.preventDefault();
-    removeCurrentOnButton(e)
-    addCurrentOnButton(e)
+    // e.preventDefault();
+    // removeCurrentOnButton(e)
+    // addCurrentOnButton(e)
 
     const nameIds = 'queue';
     refs.cardsList.setAttribute('data-list', `${nameIds}`);
@@ -81,9 +81,8 @@ async function renderQueue(e) {
 }
 
 export function renderMyLibrary() {
-    showSpinner();
-    removeCurrentOnButton()
-
+    // showSpinner();
+    // removeCurrentOnButton()
     const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')];
     paginationMyLibrary.startPagination(allIds);
 }
