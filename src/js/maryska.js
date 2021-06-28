@@ -6,7 +6,7 @@ var pagination = function (paginationWrapper, data) {
     // console.log(paginationWrapper);
     var currentPage = data.currentPage || 1;
     var itemsPerPage = data.itemsPerPage || 30;
-    var step = data.step || 3;
+    var step = data.step || 2;
     var size = Math.ceil(data.totalItems / itemsPerPage);
 
     if(typeof(data.onInit) == 'function'){
@@ -113,9 +113,22 @@ var pagination = function (paginationWrapper, data) {
     var paginationTemplate = function () {
         var template = '';
         var elementsToShow = step * 2;
-
+        if(window.screen.width < 768){
+            elementsToShow = 5;
+        }
         var add = {
             pageNum : function(start, end){
+                if(window.screen.width < 768){
+                    for(var i = start; i <= end; ++i){
+                        if(i == currentPage){
+                            template += '<a class="current pagNumber">' + i + '</a>';
+                        }else{
+                            template += '<a class="pagNumber">' + i + '</a>';
+                        }
+                    
+                    }
+                    return;
+                }
                 for(var i = start; i <= end; ++i){
                     if(i == currentPage){
                         template += '<a class="current pagNumber">' + i + '</a>';
@@ -126,10 +139,18 @@ var pagination = function (paginationWrapper, data) {
             },
             startDots: function () {
                 // add first currentPage with separator
+                if(window.screen.width < 768){
+                    // template += '<a class="pagNumber">1</a>';
+                    return;
+                }
                 template += '<a class="pagNumber">1</a><i class="pagDots">...</i>';
             },
 
             endDots: function () {
+                if(window.screen.width < 768){
+                    // template += '<a class="pagNumber">' + numPages + '</a>';
+                    return;
+                }
                 template += '<i class="pagDots">...</i><a class="pagNumber">' + numPages + '</a>';
             }
         };
