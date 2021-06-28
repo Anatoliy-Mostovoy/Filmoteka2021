@@ -3,7 +3,6 @@ import trailerScript from '../templates/player.hbs';
    refs.player.addEventListener('click', closeVideo)
 export function openTrailer(e) {
   const id = e.target.parentNode.dataset.action;
-  console.log(e.target.parentNode);
     videoById(id).then((r)=> {
         startVideo(r.results[0].key)
         console.log('video' , r.results[0].key)}).catch(console.log);
@@ -20,7 +19,6 @@ function videoById(id) {
 function startVideo(videoID) {
     let width = '780';
     let height = '460';
-    console.log(window.screen.width);
 
     if (window.screen.width < 768) {
         height = '160';
@@ -30,10 +28,6 @@ function startVideo(videoID) {
         width = '680';
     }
     onYouTubeIframeAPIReady(videoID, height, width);
-
-    // console.log(trailerScript({videoID: videoID}));
-    // refs.backdrop.innerHTML = trailerScript({videoID: videoID});
-    // document.querySelector('body').insertAdjacentHTML('beforeend', trailerScript({videoID: videoID}))
 }
 
 var player;
@@ -52,7 +46,6 @@ function onYouTubeIframeAPIReady(videoID, height, width) {
 
 function onPlayerReady(event) {
     event.target.playVideo();
-
   }
 
   var done = false;
