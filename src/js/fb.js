@@ -6,10 +6,11 @@ import 'firebase/storage'
 import 'firebase/messaging'
 
 import { refs } from "./variables"
-// import filmCards from '../templates/mylibrary.hbs'
-// import FilmsApiService from './api-content'
-// import { renderUserLibrary } from './f-render-user-library'
-import {paginationMyLibrary}from '../index';
+import { paginationMyLibrary } from '../index'
+
+import { renderMyLibrary } from './local-storage-API'
+import { renderWatched } from './local-storage-API'
+import { renderQueue } from './local-storage-API'
 
 import { filmiId } from './f-get-id-film'
 
@@ -28,47 +29,30 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 export { database };
 
-// let identif = false;
-let idCurrentUser = null;
+const { myLibraryButton, cardsList, bodyEl} = refs;
 
-const { myLibraryButton, wBtn, qBtn, cardsList, bodyEl} = refs;
 
-// bodyEl.addEventListener('click', getIdFilm);
-
-myLibraryButton.addEventListener('click', onClickMyLibrary);
-wBtn.addEventListener('click', onClickBtnWatched);
-qBtn.addEventListener('click', onClickBtnQueue);
-
-// функция callback при клике на кнопку Watched
-async function onClickBtnWatched(e) {
-  // console.log('obj при первом клике', obj);
-  // const userId = firebase.auth().currentUser.uid;
-  // const queryDataLibrary = await firebase.database().ref(`users/${userId}`).once('value')
+// функция отрисовки списка просмотренные из БД при клике на кнопку Watched
+async function renderWatchedDB() {
   const queryDataLibrary = await readUserLibrary();
   const dataLibrary = queryDataLibrary.val();
   // console.log('watched', dataLibrary);
 
-  e.preventDefault();
-  
   if (dataLibrary.watched[0] == '') {
-    // cardsList.innerHTML = "";
+    cardsList.innerHTML = "";
     return;
   }
 
   paginationMyLibrary.startPagination(dataLibrary.watched);
 };
 
-// функция callback при клике на кнопку Queue
-async function onClickBtnQueue(e) {
+// функция отрисовки списка просмотренные из БД при клике на кнопку Queue
+async function renderQueueDB() {
   const queryDataLibrary = await readUserLibrary();
-  // const userId = firebase.auth().currentUser.uid;
-  // const queryDataLibrary = await firebase.database().ref(`users/${userId}`).once('value')
   const dataLibrary = queryDataLibrary.val()
-  // console.log('dataLibrary', dataLibrary.queue);
-  e.preventDefault();
-  cardsList.innerHTML = "";
 
   if (dataLibrary.queue[0] == '') {
+    cardsList.innerHTML = "";
     return;
   }
   paginationMyLibrary.startPagination(dataLibrary.queue);
@@ -80,18 +64,30 @@ function readUserLibrary() {
   return firebase.database().ref(`users/${userId}`).once('value')
 };
 
-// функция callback при клике на MyLibrary
-async function onClickMyLibrary(e) {
-  // console.log('моя-измененная', identif);
+// ----------------------------------
+// ------------------------------------
+export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
+  // console.log(event);
+  if (evt.target.classList.contains('js-watched')) {
+    // console.log('нажал watched');
+    updateUserLibrary(filmiId, 'watched');
+  };
+
+  if (evt.target.classList.contains('js-queue')) {
+    // console.log('нажал queue');
+    updateUserLibrary(filmiId, 'queue');
+  };
+};
+
+// функция отрисовки MyLibraryDB
+async function renderLibraryDB() {
   const queryDataLibrary = await readUserLibrary()
   const dataLibrary = queryDataLibrary.val()
-  // console.log('dataLibrary', dataLibrary.watched);
-    e.preventDefault();
-    // cardsList.innerHTML = "";
 
   if (dataLibrary.watched[0] == '') {
     if (dataLibrary.queue[0] == '') {
-      alert('Ваша библиотека пуста');
+      // alert('Ваша библиотека пуста');
+      cardsList.innerHTML = "";
       return;
     } else {
       paginationMyLibrary.startPagination(dataLibrary.queue);
@@ -106,23 +102,7 @@ async function onClickMyLibrary(e) {
   }
 };
 
-export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
-  // console.log(event);
-  // проверяем на какую кнопку нажал пользователь
-  if (evt.target.classList.contains('js-watched')) {
-    // console.log('нажал watched');
-    // console.log('Айдишник из ', filmiId);
-    updateUserLibrary(filmiId, 'watched');
-  };
-
-  if (evt.target.classList.contains('js-queue')) {
-    // console.log('нажал queue');
-    // console.log('Айдишник из ', filmiId);
-    updateUserLibrary(filmiId, 'queue');
-  };
-};
-
-// // Firebase
+// функция обновления данных в БД
 async function updateUserLibrary(id, onBtn) {
   const userId = firebase.auth().currentUser.uid;
   try {
@@ -139,35 +119,44 @@ async function updateUserLibrary(id, onBtn) {
       const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary)
     };
   } catch (error) {
-    console.log(error.message)
+    // console.log(error.message)
     throw error
   }
 };
 
-// // слушатель firebase
-// firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
+// // слушатель firebase для MyLibrary
+export function renderLibrary() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      renderLibraryDB();
+    } else {
+      renderMyLibrary();
+      console.log('вы не авторизованы');
+    }
+  });
+};
 
-//     // export function currentUserId() {
-//     //   return user.uid;
-//     // }
+// // слушатель firebase для Watched
+export function renderMyWatched() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      renderWatchedDB();
+    } else {
+      renderWatched();
+      console.log('вы не авторизованы');
+    }
+  });
+};
 
-//     idCurrentUser = user.uid;
-//     console.log('idCurrentUser', idCurrentUser);
-//     const displayName = user.displayName;
-//     const email = user.email;
-//     const photoURL = user.photoURL;
-//     const emailVerified = user.emailVerified;
-//     //   console.log('displayName', displayName);
-//     //   console.log('email', email);
-//   } else {
-//     // User is signed out
-//     // ...
-//     console.log('вы не авторизованы');
-//     // myLibraryButton.removeEventListener('click', onClickMyLibrary);
-//   }
-// });
-// // --------------------------------------------------
-// export { idCurrentUser };
+// // слушатель firebase для Queue
+export function renderMyQueue() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      renderQueueDB();
+    } else {
+      renderQueue();
+      console.log('вы не авторизованы');
+    }
+  });
+};
+// // -------------------------------------------------- 

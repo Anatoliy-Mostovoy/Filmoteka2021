@@ -1,5 +1,5 @@
 import { refs } from "./variables";
-import { identif } from './autentification'
+// import { identif } from './autentification'
 // console.log('Oksana', identif);
 
 const { annoymentModal, closeAnnoyment, overlay } = refs;
@@ -19,7 +19,7 @@ let counterOpenedModal = 0;
      }
 
 function checkingTheOpeningCondition() {
-    if (counterOpenedModal >= MAX_PROMT_MODAL || userSubscribed === true || identif === true) {
+    if (counterOpenedModal >= MAX_PROMT_MODAL || userSubscribed === true) {
         return;
     }
     
@@ -51,4 +51,4 @@ function closeToAnnoyment() {
     closeModal();
     }
 
-export { closeToAnnoyment, closeModal };
+export { closeToAnnoyment };
