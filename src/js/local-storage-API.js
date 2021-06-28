@@ -116,7 +116,7 @@ function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
              addToLocalStorageWatchedOrQueue(element, action)
              const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
             removeElement.classList.remove(currentButtonClass)
-             removeFromLocalStorage(removeElement,addArrOfIds actionRemove);
+             removeFromLocalStorage(removeElement, actionRemove);
             }else{
                 element.classList.remove(currentButtonClass);
                 removeFromLocalStorage(element, action);
