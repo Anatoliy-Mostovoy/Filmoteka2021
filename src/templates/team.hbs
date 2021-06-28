@@ -1,0 +1,19 @@
+  {{#each this}}   
+ <li class="item-team default">
+   
+        <p class="team-name">{{member}}</p>
+        <div class="image-box">
+            <div class="border"></div>
+            <img class="photo" src="{{photo}}">
+            <div class="image-content">
+                <h3 class="image-header">{{name}}</h3>
+                <p>{{substance}}</p>
+                <a class="link-git" href="{{git}}">
+                    <svg class="icon-git">
+                        <use href= "./images/team/team.svg#icon-github"></use>
+                    </svg></a>
+            </div>
+        </div>
+  
+</li>
+   {{/each}}

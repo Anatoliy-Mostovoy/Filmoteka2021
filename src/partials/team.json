@@ -1,0 +1,68 @@
+ [
+    {"member": "Anatolii Mostovyi - Team lead",
+    "name": "Anatolii Mostovyi",
+    "photo": "",
+    "git": "https://github.com/Anatoliy-Mostovoy", 
+    "substance": "The ideal leader"
+    },
+    {"member": "Ivan Tryhuba - Scrum master",
+    "name": "Ivan Tryhuba",
+    "photo": "",
+    "git": "https://github.com/ivantryhuba",
+    "substance": "the Esthete"
+    },
+    {"member": "Ivan Laver - Developer",
+    "name": "Ivan Laver",
+    "photo": "./images/team/Ivan-Laver.jpg",
+    "git": "https://github.com/Ereyzer",
+    "substance": "Picasso in JS"
+    },
+    {"member": "Tetiana Yarova - Developer",
+    "name": "Tetiana Yarova",
+    "photo": "./images/team/tanya.jpg",
+    "git": "https://github.com/YarovaT",
+    "substance": "Performer of complex tasks"
+    },
+    {"member": "Nikita Illin - Developer",
+    "name": "Mikita Illin",
+    "photo": "./images/team/nikita.jpg",
+    "git": "https://github.com/nkpn",
+    "substance": "Team optimist"
+    },
+    {"member": "Oksana Plyas - Developer",
+    "name": "Oksana Plyas",
+    "photo": "./images/team/plyas.jpg",
+    "git": "https://github.com/playsoksana",
+    "substance": "Almost optimist"
+    },
+    {"member": "Yulia Shcherban - Developer",
+    "name": "Yulia Shcherban",
+    "photo": "",
+    "git": "https://github.com/Yulia82",
+    "substance": "The person who can do everything"
+    },
+    {"member": "Olga Baturina - Developer",
+    "name": "Olga Baturina",
+    "photo": "",
+    "git": "https://github.com/OlhaBaturina",
+    "substance": "Cats => {return code}"
+    },
+    {"member": "Andrey Belinsky - Developer",
+    "name": "Andrey Belinsky",
+    "photo": "",
+    "git": "https://github.com/andriko21",
+    "substance": "Always positive"
+    },
+    {"member": "Dmitry Mikheenko - Developer",
+    "name": "Dmitry Mikheenko",
+    "photo": "",
+    "git": "https://github.com/mikheenko-d-s",
+    "substance": "Soccer lover"
+    },
+    {"member": "Karina Skrypka - Developer",
+    "name": "Karina Skrypka",
+    "photo": "",
+    "git": "https://github.com/KarinaSkrypka",
+    "substance": "The busy"
+    }
+]
