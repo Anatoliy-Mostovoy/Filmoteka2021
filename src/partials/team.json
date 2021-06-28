@@ -19,8 +19,8 @@
     },
     {"member": "Tetiana Yarova - Developer",
     "name": "Tetiana Yarova",
-    "photo": "./images/team/tanya.jpg",
-    "git": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/tanya.jpg",
+    "photo": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/tanya.jpg",
+    "git": "https://github.com/YarovaT",
     "substance": "Performer of complex tasks"
     },
     {"member": "Nikita Illin - Developer",
@@ -31,8 +31,8 @@
     },
     {"member": "Oksana Plyas - Developer",
     "name": "Oksana Plyas",
-    "photo": "./images/team/plyas.jpg",
-    "git": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/plyas.jpg?raw=true",
+    "photo": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/plyas.jpg?raw=true",
+    "git": "https://github.com/playsoksana",
     "substance": "Almost optimist"
     },
     {"member": "Yulia Shcherban - Developer",

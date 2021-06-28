@@ -5,7 +5,6 @@ const { backdropTeam, bodyEl, teamClose, linkStudents, listTeam } = refs;
 
 console
 listTeam.innerHTML = teamMarkup(listOfTeam);
-console.log(teamMarkup(listOfTeam));
 backdropTeam.addEventListener('click', closeCard);
 linkStudents.addEventListener('click', openModal);
 
