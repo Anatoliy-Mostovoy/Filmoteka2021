@@ -177,3 +177,62 @@ export function renderMyLibrary() {
     const allIds = [...addArrOfIds('queue'), ...addArrOfIds('watched')];
     paginationMyLibrary.startPagination(allIds);
 }
+
+function addCurrentOnButton(e) {
+    e.target.classList.add(currentButtonClass);
+    currentButtonSwitch = e.target;
+}
+function removeCurrentOnButton() {
+    if(currentButtonSwitch === null)return;
+    currentButtonSwitch.classList.remove(currentButtonClass);
+}
+
+export function addOrRemoveOnOpenModal(action) {
+    const element = document.querySelector(`[data-modal="${action}"]`);
+    const testOnLocal = JSON.parse(localStorage.getItem(`${action}`)).includes(element.getAttribute('data-action'));
+    element.textContent = testOnLocal ? `remove to ${action}` : `add to ${action}`;
+    if(testOnLocal){
+        element.classList.add(currentButtonClass)
+       }else{
+           element.classList.remove(currentButtonClass) 
+       };
+}
+
+
+function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
+
+        if(!element.classList.contains(currentButtonClass)){
+             element.classList.add(currentButtonClass)
+             addToLocalStorageWatchedOrQueue(element, action)
+             const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
+            removeElement.classList.remove(currentButtonClass)
+             removeFromLocalStorage(removeElement,addArrOfIds actionRemove);
+            }else{
+                element.classList.remove(currentButtonClass);
+                removeFromLocalStorage(element, action);
+            };
+}
+
+function removeFromLocalStorage(element, action) {
+    element.textContent = `add to ${action}`;
+    const storageElement = addArrOfIds(action);
+    const elementId = element.dataset.action;
+    const searchId = storageElement.indexOf(elementId);
+    if (searchId === -1) {
+        return;
+    }
+    storageElement.splice(searchId, 1);
+    addToLocaleStorage(storageElement, action);
+
+    if (cardsList.dataset.list === "library" || cardsList.dataset.list === "home") {
+        return;
+    };
+    paginationMyLibrary.startPagination(storageElement);
+
+}
+
+function addToLocaleStorage(array, action) {
+    localStorage.setItem(action, JSON.stringify(array));
+
+}
+
