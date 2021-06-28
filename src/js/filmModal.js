@@ -26,7 +26,7 @@ function openModalFilm(evt) {
     //* ref на оверлей для запуске трейлера
     refs.startTrailer = document.querySelector('[data-play="trailer"]');
     refs.startTrailer.addEventListener('click', openTrailer)
-
+    if(localStorage.getItem('firebase:host:filmoteka-84a5d-default-rtdb.firebaseio.com'))return;
 // *Кнопки "Watched" та "Queue"
     addOrRemoveOnOpenModal('watched');
     addOrRemoveOnOpenModal('queue')
@@ -40,7 +40,7 @@ function openModalFilm(evt) {
 
   window.addEventListener('keydown', onPressEsc);
   
-  refs.modalFilmCont.addEventListener('click', onClikBtnFilmModal);      /*вешает слушатель на модальное окно фильма*/
+  // refs.modalFilmCont.addEventListener('click', onClikBtnFilmModal);      /*вешает слушатель на модальное окно фильма*/
 }
 
 // ЗАКРЫВАЕМ МОДАЛКУ
