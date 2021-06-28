@@ -1,6 +1,6 @@
 import { refs } from './variables';
 
-const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader } = refs;
+const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader, userButton } = refs;
 
 const callback = entries => {
   entries.forEach(entry => {
@@ -28,6 +28,7 @@ function addClassByobserver() {
   searchForm.classList.add('hidden');
   headerButtons.classList.add('hidden');
   navigationHeader.classList.add('mini-header');
+  userButton.classList.add('hidden');
 }
 
 function removeClassByobserver() {
@@ -35,6 +36,7 @@ function removeClassByobserver() {
   searchForm.classList.remove('hidden');
   headerButtons.classList.remove('hidden');
   navigationHeader.classList.remove('mini-header');
+   userButton.classList.remove('hidden');
 }
 
 // checkIfEmptyLibrary

@@ -81,4 +81,7 @@ export const refs = {
  
   backdropTeam: document.querySelector('.backdrop-team'),
   teamClose: document.querySelector('.team-close'),
+
+  // user-button
+  userButton: document.querySelector('.js-user-button'),
 };
