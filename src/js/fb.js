@@ -68,20 +68,20 @@ function readUserLibrary() {
 
 // ----------------------------------
 // ------------------------------------
-export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
+// export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
 
-  // console.log(event);
-  if (evt.target.classList.contains('js-watched')) {
-    // console.log('нажал watched');
-    updateUserLibrary(filmiId, 'watched');
-  }
+//   // console.log(event);
+//   if (evt.target.classList.contains('js-watched')) {
+//     // console.log('нажал watched');
+//     updateUserLibrary(filmiId, 'watched');
+//   }
 
-  if (evt.target.classList.contains('js-queue')) {
-    // console.log('нажал queue');
-    updateUserLibrary(filmiId, 'queue');
+//   if (evt.target.classList.contains('js-queue')) {
+//     // console.log('нажал queue');
+//     updateUserLibrary(filmiId, 'queue');
 
-  };
-};
+//   };
+// };
 
 // функция отрисовки MyLibraryDB
 async function renderLibraryDB() {
@@ -109,7 +109,7 @@ async function renderLibraryDB() {
 
 
 // функция обновления данных в БД
-async function updateUserLibrary(id, onBtn) {
+export async function updateUserLibrary(id, onBtn) {
   const userId = firebase.auth().currentUser.uid;
   try {
     const queryDataLibrary = await firebase.database().ref(`users/${userId}/${onBtn}`).once('value')
