@@ -306,19 +306,27 @@
   border-color: $mark-color;
 }
 
-.header.mini-header {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
 .nav.mini-header {
   margin-bottom: 0;
 }
 
+ .header.mini-header {
+   padding-top: 10px;
+   padding-bottom: 10px;
+ }
 
+ .header.empty-library .nav {
+  margin-bottom: 0;
+ }
 
 .header.empty-library {
-  padding-bottom: 48px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.header.empty-library.mini-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .nothing-search__container {

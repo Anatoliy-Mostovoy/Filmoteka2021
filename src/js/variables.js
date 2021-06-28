@@ -9,7 +9,7 @@ export const refs = {
   //* HOME BUTTON
   homeButton: document.querySelector('.js-homeBtn'),
   //* MY LIBRARY BUTTON
-  myLibraryButton: document.querySelector('.js-myLibraryBtn'),
+  myLibraryButton: document.querySelector('.js-myLibraryBtn'), 
   //* ссилка на HEADER
   header: document.querySelector('.js-header'),
   //* ссилка на лого
