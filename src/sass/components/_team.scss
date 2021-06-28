@@ -11,7 +11,7 @@
   align-content: center;
   position: relative;
   min-height: 50vh;
-  transition: all 200ms ease-in-out 50ms;
+  @include transition(all);
   opacity: 1;
   @media screen and (min-width: 450px) {
     width: 60vw;
@@ -38,7 +38,7 @@
 .section-team div {
   border-radius: 3px;
   background: rgba(220, 220, 220, 0.5);
-  transition: all 200ms ease-in-out 50ms;
+  @include transition(all);
   font-family: Helvetica, Arial, Sans-Serif;
   font-weight: 500;
   cursor: pointer;
@@ -100,9 +100,9 @@
   margin-top: 40px;
   height: 40px;
   width: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  @extend %flex-center;
 }
 
 .icon-git {

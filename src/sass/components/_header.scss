@@ -179,9 +179,7 @@
   padding: 0;
   border: none;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %flex-center;
 }
 
 //logo
@@ -395,9 +393,7 @@
 }
 
 .header-user-cover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %flex-center;
   margin-left: auto;
   margin-right: auto;
 
