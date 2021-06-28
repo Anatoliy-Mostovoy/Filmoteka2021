@@ -1,3 +1,8 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+import 'firebase/messaging';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -12,17 +17,17 @@ import { renderMyLibrary } from './local-storage-API'
 import { renderWatched } from './local-storage-API'
 import { renderQueue } from './local-storage-API'
 
-import { filmiId } from './f-get-id-film'
+import { showSpinner } from './spinner';
 
 // файл конфигурации web app's Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCeeGI9asqn4tm9e6RPTw7398rO1eRYinY",
-  authDomain: "filmoteka-84a5d.firebaseapp.com",
-  databaseURL: "https://filmoteka-84a5d-default-rtdb.firebaseio.com",
-  projectId: "filmoteka-84a5d",
-  storageBucket: "filmoteka-84a5d.appspot.com",
-  messagingSenderId: "230509239947",
-  appId: "1:230509239947:web:adccdfbaeb50091e247e8e"
+  apiKey: 'AIzaSyCeeGI9asqn4tm9e6RPTw7398rO1eRYinY',
+  authDomain: 'filmoteka-84a5d.firebaseapp.com',
+  databaseURL: 'https://filmoteka-84a5d-default-rtdb.firebaseio.com',
+  projectId: 'filmoteka-84a5d',
+  storageBucket: 'filmoteka-84a5d.appspot.com',
+  messagingSenderId: '230509239947',
+  appId: '1:230509239947:web:adccdfbaeb50091e247e8e',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -35,6 +40,7 @@ const { myLibraryButton, cardsList, bodyEl} = refs;
 // функция отрисовки списка просмотренные из БД при клике на кнопку Watched
 async function renderWatchedDB() {
   const queryDataLibrary = await readUserLibrary();
+
   const dataLibrary = queryDataLibrary.val();
   // console.log('watched', dataLibrary);
 
@@ -67,15 +73,17 @@ function readUserLibrary() {
 // ----------------------------------
 // ------------------------------------
 export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
+
   // console.log(event);
   if (evt.target.classList.contains('js-watched')) {
     // console.log('нажал watched');
     updateUserLibrary(filmiId, 'watched');
-  };
+  }
 
   if (evt.target.classList.contains('js-queue')) {
     // console.log('нажал queue');
     updateUserLibrary(filmiId, 'queue');
+
   };
 };
 
@@ -101,6 +109,7 @@ async function renderLibraryDB() {
     }
   }
 };
+
 
 // функция обновления данных в БД
 async function updateUserLibrary(id, onBtn) {
@@ -160,3 +169,4 @@ export function renderMyQueue() {
   });
 };
 // // -------------------------------------------------- 
+
