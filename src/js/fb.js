@@ -4,11 +4,6 @@ import 'firebase/database';
 import 'firebase/storage';
 import 'firebase/messaging';
 
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
-import 'firebase/storage'
-import 'firebase/messaging'
 
 import { refs } from "./variables"
 import { paginationMyLibrary } from '../index'
