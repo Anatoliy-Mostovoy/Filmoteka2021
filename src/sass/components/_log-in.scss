@@ -15,128 +15,143 @@
 
 .login-wrap {
   z-index: 1;
-  color: #ffffff;
-  font: 600 16px/18px 'Open Sans', sans-serif;
-  width: 100%;
+  position: relative;
+
   margin: auto;
   max-width: 525px;
-  border-radius: 5px;
-  box-shadow: 0 0 1rem 0 rgba(72, 72, 72, 0.2);
   min-height: 670px;
-  position: relative;
-  text-shadow: rgb(0, 0, 0) 0 0 5px;
-  background: inherit;
+  border-radius: 5px;
   overflow: hidden;
+
+  font-family: $main-font;
+  font-weight: $main-weight;
+  font-size: $footer-size;
+  color: #ffffff;
+  background: inherit;
+
+  box-shadow: 0 0 1rem 0 rgba(72, 72, 72, 0.2);
+  text-shadow: rgb(0, 0, 0) 0 0 5px;
+
   &:before {
-    content: '';
-    position: absolute;
-    background: inherit;
     z-index: -1;
+    position: absolute;
+    content: '';
+
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    margin: -20px;
+
+    background: inherit;
     box-shadow: inset 0 0 2000px rgb(117, 117, 117);
     filter: blur(2px);
-    margin: -20px;
   }
 }
 
 .login-html {
+  position: absolute;
+
   width: 100%;
   height: 100%;
-  position: absolute;
   padding: 60px 30px 50px;
-  //background-image: url('../images/cinema.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   border-radius: 50px;
   text-align: center;
+
   @media screen and (min-width: $tablet) {
     padding: 90px 70px 50px 70px;
   }
 }
+
 .login-html .sign-in-htm,
 .login-html .sign-up-htm {
+  position: absolute;
+
   top: 30px;
   left: 0;
   right: 0;
   bottom: 0;
-  position: absolute;
-  transform: rotateY(180deg);
   backface-visibility: hidden;
-  transition: all 0.4s linear;
+
+  transform: rotateY(180deg);
+  @include transition(all);
 }
+
 .login-html .sign-in,
 .login-html .sign-up,
 .login-form .group .check {
   display: none;
 }
+
 .login-html .tab,
 .login-form .label,
 .group .button-log-in {
   text-transform: uppercase;
 }
+
 .login-html .tab {
-  font-size: 22px;
+  display: inline-block;
   margin-right: 15px;
   padding-bottom: 5px;
   margin: 0 15px 10px 0;
-  display: inline-block;
   border-bottom: 2px solid transparent;
+
+  font-size: $footer-size;
 }
 
 .sign-in:checked + .tab,
 .sign-up:checked + .tab {
-  color: #ffffff;
+  color: $header-text-color;
   text-shadow: rgb(0, 0, 0) 0 0 5px;
-  border-color: #ff6b08;
+  border-color: $mark-color;
 }
 
 .login-form {
-  min-height: 345px;
   position: relative;
+
+  min-height: 345px;
   perspective: 1000px;
   transform-style: preserve-3d;
 }
+
 .login-form .group {
   margin-bottom: 15px;
 }
+
 .login-form .label,
 .login-form .input,
 .login-form .button-log-in {
-  background-color: transparent;
+  display: block;
   outline: none;
   width: 100%;
-  display: block;
+
+  background-color: transparent;
   text-shadow: rgb(0, 0, 0) 0 0 2px;
 }
+
 .login-form .input,
 .login-form .button-log-in {
-  color: $header-text-color;
   max-width: 350px;
-  border: none;
   padding: 15px 20px;
   margin-left: auto;
   margin-right: auto;
+  border: none;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+
+  color: $header-text-color;
   box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.9);
-  //background: $header-text-color;
 }
-.login-form .input-password {
-  text-security: circle;
-  -webkit-text-security: circle;
-}
+
 .login-form .label {
   color: $header-text-color;
   font-size: 12px;
 }
+
 .login-form .button-log-in {
-  background: $mark-color;
   border-radius: 10px;
   box-shadow: none;
+  background: $mark-color;
   text-shadow: rgb(0, 0, 0) 0 0 2px;
 }
 
@@ -145,40 +160,44 @@
 }
 
 .login-form .icon {
+  position: relative;
+  display: inline-block;
   width: 15px;
   height: 15px;
   border-radius: 2px;
-  position: relative;
-  display: inline-block;
+
   background: $header-text-color;
 }
+
 .login-form .icon:before,
 .login-form .icon:after {
+  position: absolute;
   content: '';
   width: 10px;
   height: 2px;
+
   background: $header-text-color;
-  position: absolute;
-  transition: all 0.2s ease-in-out 0s;
+  @include transition(all);
 }
+
 .login-form .icon:before {
   left: 3px;
   width: 5px;
   bottom: 6px;
   transform: scale(0) rotate(0);
 }
+
 .login-form .icon:after {
   top: 6px;
   right: 0;
   transform: scale(0) rotate(0);
 }
+
 .login-form.check:checked + label {
   color: $header-text-color;
   text-shadow: rgb(0, 0, 0) 0 0 5px;
 }
-.login-form .check:checked + label .icon {
-  background: #1161ee;
-}
+
 .login-form .check:checked + label .icon:before {
   transform: scale(1) rotate(45deg);
 }
@@ -195,19 +214,18 @@
 .hr {
   height: 2px;
   margin: 5px 0;
-  background: radial-gradient(#ff6b08, #ff001b);
+  background: radial-gradient($mark-color, #ff001b);
+
   @media screen and (min-width: $tablet) {
     margin: 30px 0 30px 0;
   }
 }
+
 .foot-lnk {
   text-align: center;
 }
 
-.regist {
-  cursor: pointer;
-}
-
+.regist,
 .tab {
   cursor: pointer;
 }
@@ -224,16 +242,19 @@
 
 .close-login-wrap {
   position: absolute;
+
+  @extend %flex-center;
   top: 20px;
   right: 30px;
   width: 25px;
   height: 25px;
-  @extend %flex-center;
-  background: transparent;
   outline: none;
   cursor: pointer;
   border: 1px solid $body-bg-color;
   border-radius: 50%;
+
+  background: transparent;
+
   &:hover .icon-close-login-wrap,
   &:focus .icon-close-login-wrap {
     transform: scale(1.2);
