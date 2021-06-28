@@ -1,15 +1,18 @@
 import { refs } from './variables';
-const { backdropTeam,  bodyEl, teamClose, linkStudents} = refs;
+import teamMarkup from '../templates/team.hbs'
+import listOfTeam from '../partials/team.json'
+const { backdropTeam, bodyEl, teamClose, linkStudents, listTeam } = refs;
 
+console
+listTeam.innerHTML = teamMarkup(listOfTeam);
+console.log(teamMarkup(listOfTeam));
 backdropTeam.addEventListener('click', closeCard);
 linkStudents.addEventListener('click', openModal);
 
 
 function openModal() {
-  linkStudents.removeEventListener('click', openModal);
- 
-  backdropTeam.classList.remove('backdrop-hidden');
-  
+  linkStudents.removeEventListener('click', openModal); 
+  backdropTeam.classList.remove('backdrop-hidden');  
 }
 
 

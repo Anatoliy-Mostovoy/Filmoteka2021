@@ -1,16 +1,46 @@
+.cat-modal {
+  position: fixed;
+  opacity: 1;
+
+  @include transition(opacity, transform);
+  transform: translateX(0%);
+
+  right: 0;
+  bottom: 0;
+  display: block;
+  box-sizing: 0;
+  width: 280px;
+  height: 132px;
+
+  border-top-right-radius: 15px;
+  border-top-left-radius: 24px;
+  border-bottom-right-radius: 0;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(96, 87, 87, 0.5);
+
+}
+
+.cat-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(110%);
+}
+
 .titleText {
-  font-weight: 900;
-  font-size: 14px;
   position: absolute;
-  width: 90px;
+  cursor: pointer;
+
   top: 30px;
   right: 0;
+  width: 90px;
+
+  font-weight: 900;
+  font-size: 14px;
   color: $mark-color;
+  text-transform: uppercase;
+  @include transition(color, text-shadow);
   text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff,
     -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 300ms ease, text-shadow 300ms ease;
 
   &:hover,
   &:focus {
@@ -21,133 +51,154 @@
   }
 }
 
+.close-annoyment {
+  position: absolute;
+
+  top: -3px;
+  right: -3px;
+  @extend %flex-center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  transform: scale(1);
+  @include transition(box-shadow, transform);
+
+  &:hover .icon-cat-close,
+  &:focus .icon-cat-close {
+    transform: scale(1.1);    
+  }
+}
+
+.icon-cat-close {
+  width: 20px;
+  height: 20px;
+  @extend %flex-center;
+  border-radius: 50%;
+  
+  background-color: $mark-color;  
+  @include transition(box-shadow, transform);
+}
+
 .fa {
   font-size: 45px;
 }
 
-.cat-modal {
-  position: fixed;
-  opacity: 1;
-  transform: translateX(0%);
-  transition: opacity 1000ms ease-out, transform 500ms ease;
-  bottom: 0;
-  display: block;
-  box-sizing: 0;
-  right: 0;
-
-  width: 280px;
-  height: 132px;
-
-  border-top-right-radius: 15px;
-  border-top-left-radius: 24px;
-  border-bottom-right-radius: 0;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(96, 87, 87, 0.5);
-
-  @media screen and (min-width: $tablet) {
-    right: 0px;
-    transform: translateX(0%);
-  }
-}
 
 .cat-modal.cat-hidden .cat-modal {
   opacity: 0.1;
 }
 
 .catColor {
-  /*This universally changes the colour of the cat. For multi-coloured cats, delete it and apply background-color to components individually*/
-  background-color: #242424;
+ background-color: #242424;
 }
 
 .catContainer {
   position: relative;
+
   top: -160px;
+  left: -50%;
   width: 50%;
   height: 500px;
-  left: -50%;
+  
   transform: translateX(-600px);
 }
 
 .catHead {
+  z-index: 2;
+  position: absolute;
+
+  margin-left: 718px;
+  margin-top: 200px;
   width: 170px;
   height: 130px;
   border-radius: 50%;
   -webkit-border-radius: 55% 55% 50% 50%;
-  margin-left: 718px;
-  margin-top: 200px;
-  position: absolute;
-  z-index: 2;
+  
+   
   box-shadow: 0px 4px 8px -6px #111;
 }
 
 .catHair {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  border: none;
   position: absolute;
+
   margin-top: 208px;
   margin-left: 772px;
+  width: 70px;
+  height: 70px;
+  border: none; 
 }
 
 .catHair::before {
-  width: 80px;
-  height: 70px;
   position: absolute;
   content: '';
+
   top: 0;
   left: 0;
+  
+  width: 80px;
+  height: 70px;
+ 
   border: none;
-  background: inherit;
-  -webkit-transform: rotateZ(26deg);
+  background: inherit; 
   transform: rotateZ(26deg);
+  -webkit-transform: rotateZ(26deg);
 }
 
 .catHair::after {
-  width: 72px;
-  height: 70px;
   position: absolute;
   content: '';
+
   top: 0;
   left: 0;
+  width: 72px;
+  height: 70px; 
   border: none;
-  background: inherit;
-  -webkit-transform: rotateZ(60deg);
+
+  background: inherit;  
   transform: rotateZ(60deg);
+  -webkit-transform: rotateZ(60deg);
 }
 
 .catEar {
+  z-index: 1;
+  position: absolute;
+  
   width: 80px;
   height: 100px;
   border: none;
   -webkit-border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
-  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
-  position: absolute;
-  z-index: 1;
+  border-radius: 80% 0 55% 50% / 55% 0 80% 50%;  
 }
 
 .catLeftEar {
-  -webkit-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg);
   margin-left: 717px;
   margin-top: 173px;
+
+  transform: rotateZ(-45deg);
+  -webkit-transform: rotateZ(-45deg);  
 }
 
 .catRightEar {
-  -webkit-transform: rotateZ(-20deg);
-  transform: rotateZ(20deg);
   margin-left: 820px;
   margin-top: 175px;
+
+  transform: rotateZ(20deg);
+  -webkit-transform: rotateZ(-20deg);
 }
 
 .catInsideEar {
+  z-index: 1;
+
   width: 60px;
   height: 100px;
   border: 1px;
-  -webkit-border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  
   border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
-  background: $mark-color;
-  z-index: 1;
+  -webkit-border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+  background: $mark-color;  
 }
 
 .catLeftInsideEar {
@@ -161,14 +212,17 @@
 }
 
 .catEye {
-  width: 62px;
-  height: 50px;
-  -webkit-border-radius: 50%;
-  border-radius: 60% 60% 60% 60%;
-  background-color: #e6e6e6;
   z-index: 3;
   position: absolute;
+
   margin-top: 32px;
+  width: 62px;
+  height: 50px;
+
+
+  border-radius: 60% 60% 60% 60%;
+  -webkit-border-radius: 50%;
+  background-color: #e6e6e6; 
 }
 
 .catLeftEye {
@@ -180,11 +234,13 @@
 }
 
 .eyelid {
+  z-index: 10;
+  position: absolute;
+
+  margin-top: -5%;
   height: 60%;
   width: 100%;
-  position: absolute;
-  z-index: 10;
-  margin-top: -5%;
+ 
   border-radius: 100% 100% 10% 10%;
   animation: blink 6s infinite ease-in-out;
   animation-delay: 7s;
@@ -212,38 +268,44 @@
 }
 
 .pupil {
+  z-index: 5;
+
+  margin-left: 20px;  
+  margin-top: 3px;
   width: 20px;
   height: 35px;
-  background-color: #222;
-  -webkit-border-raidus: 50%;
+
+  background-color: #222;  
   border-radius: 50%;
-  margin-left: 20px;
-  z-index: 5;
-  margin-top: 3px;
+  -webkit-border-raidus: 50%;  
 }
 
 .catBody {
+  z-index: 1;
+  position: absolute;
+
+  margin-left: 712px;
+  margin-top: 276px;
   width: 185px;
   height: 110px;
   border: none;
-  -webkit-border-radius: 50% / 60% 60% 35% 35%;
+  
   border-radius: 50% / 80% 80% 50% 50%;
-  position: absolute;
-  margin-left: 712px;
-  margin-top: 276px;
-  z-index: 1;
+  -webkit-border-radius: 50% / 60% 60% 35% 35%;
 }
 
 .catFoot {
-  height: 28%;
-  width: 30%;
   position: absolute;
   z-index: 10;
+
   margin-top: 43%;
-  border-radius: 100% 100% 70% 70%;
+  height: 28%;
+  width: 30%;
+
+  border-radius: 100% 100% 70% 70%; 
+  box-shadow: -2px -4px 10px -6px rgba(0, 0, 0, 1);
   -webkit-box-shadow: -1px 2px 20px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 2px 20px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: -2px -4px 10px -6px rgba(0, 0, 0, 1);
 }
 
 .leftFoot {
@@ -284,15 +346,15 @@
 
 .catTail {
   position: absolute;
+
   margin-left: 870px;
   margin-top: 352px;
   translate: rotate(-10deg);
 }
 
-// /*Each span creates a circle that extends the tail and animates up and down individually, add more and style with left: +5px and a 0.2s additional delay from the previous to create a longer tail.*/
-
 .catContainer span {
   position: absolute;
+
   width: 30px;
   height: 30px;
   border-radius: 50px;
@@ -379,43 +441,4 @@ span:nth-child(11) {
   100% {
     transform: translateY(0px);
   }
-}
-
-.cat-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(110%);
-}
-
-.close-annoyment {
-  position: absolute;
-  top: -3px;
-  right: -3px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  &:hover .icon-cat-close,
-  &:focus .icon-cat-close {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  }
-}
-
-.icon-cat-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: $mark-color;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  transition: box-shadow 300ms ease, transform 300ms ease;
 }
