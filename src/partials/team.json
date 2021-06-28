@@ -1,7 +1,7 @@
  [
     {"member": "Anatolii Mostovyi - Team lead",
     "name": "Anatolii Mostovyi",
-    "photo": "",
+    "photo": "https://ruzoo.ru/wp-content/uploads/2014/04/%D0%95%D0%B4%D0%B0-%D0%B8-%D0%B2%D0%BE%D0%B4%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D1%88%D0%BA%D0%B8.jpg",
     "git": "https://github.com/Anatoliy-Mostovoy", 
     "substance": "The ideal leader"
     },
@@ -13,26 +13,26 @@
     },
     {"member": "Ivan Laver - Developer",
     "name": "Ivan Laver",
-    "photo": "./images/team/Ivan-Laver.jpg",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/Ivan-Laver.jpg?raw=true",
     "git": "https://github.com/Ereyzer",
     "substance": "Picasso in JS"
     },
     {"member": "Tetiana Yarova - Developer",
     "name": "Tetiana Yarova",
     "photo": "./images/team/tanya.jpg",
-    "git": "https://github.com/YarovaT",
+    "git": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/tanya.jpg",
     "substance": "Performer of complex tasks"
     },
     {"member": "Nikita Illin - Developer",
     "name": "Mikita Illin",
-    "photo": "./images/team/nikita.jpg",
+    "photo": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/nikita.jpg?raw=true",
     "git": "https://github.com/nkpn",
     "substance": "Team optimist"
     },
     {"member": "Oksana Plyas - Developer",
     "name": "Oksana Plyas",
     "photo": "./images/team/plyas.jpg",
-    "git": "https://github.com/playsoksana",
+    "git": "https://raw.githubusercontent.com/Anatoliy-Mostovoy/Filmoteka2021/main/src/images/team/plyas.jpg?raw=true",
     "substance": "Almost optimist"
     },
     {"member": "Yulia Shcherban - Developer",
