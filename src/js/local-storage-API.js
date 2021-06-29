@@ -3,9 +3,8 @@ import { paginationMyLibrary} from '../index';
 import { addUserLibraryDB, removeUserLibraryDB, testIncludeFilm } from './fb';
 import { testInclude } from './fb'
 //* экземпляр класса API
-import { identif } from './autentification'
+import { identif } from './autentification';
 
-console.log('testIncludeFilm',testIncludeFilm);
 const { bodyEl, cardsList } = refs;
  //* поиск id фильма
 bodyEl.addEventListener('click', testWhatButtonIsIt);

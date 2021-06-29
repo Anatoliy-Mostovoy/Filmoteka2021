@@ -33,6 +33,7 @@ function onMyLibraryButtonClick(e) {
   e.preventDefault();
   showSpinner();
 
+
   refs.myLibraryButton.classList.add('current');
   refs.homeButton.classList.remove('current');
 
