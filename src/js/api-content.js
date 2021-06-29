@@ -6,6 +6,9 @@ export default class FilmsApiService {
     this.searchQuery = '';
     this.page = 1;
     this.filmId = '520783';
+    this.year = '';
+    this.adult = false;
+    this.region = '';
   }
 
   // Поиск по запросу - возвращает массив объектов (фильмов по запросу)
@@ -21,18 +24,19 @@ export default class FilmsApiService {
   }
 
   //  Тренды за день - возвращает массив объектов
-  fetchTrendsFilms() {
-    return fetch(
-      `${BASE_URL}trending/all/day?api_key=${API_KEY}&language=en-US&page=${this.page}&include_adult=false`,
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(({ results }) => {
-        this.page += 1;
-        return results;
-      });
-  }
+  // fetchTrendsFilms() {
+  //   this.dayOrWeak = 'day';
+  //   return fetch(
+  //     `${BASE_URL}trending/all/${this.dayOrWeak}?api_key=${API_KEY}&language=en-US&page=${this.page}&include_adult=false`,
+  //   )
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(({ results }) => {
+  //       this.page += 1;
+  //       return results;
+  //     });
+  // }
 
   //Описание фильма - возвращает обект
   fetchInformationAboutFilm(id = '520783') {
@@ -60,27 +64,27 @@ export default class FilmsApiService {
 }
 
 async searchGenres(res) {
-  return await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
+  return await fetch(`${BASE_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`)
    .then((r)=>r.json())
    .then((r)=>r.genres);
 }
 
-// Возвращает url видео по айдишнику фильма
-fetchVideoOfFilm() {
-  return fetch(
-    `${BASE_URL}movie/${this.filmId}/videos?api_key=${API_KEY}&language=en-US`,
-  )
-    .then(({ url }) => {
-      console.log(url);
-      return url;
-    });
-}
+  // fetchWithFilter({language, adult, year, region}){
+  //   this.language = language ? language : 'en-US';
+  //   this.adult = adult ? adult : false;
+  //   this.year = year ? `&year=${year}` : '';
+  //   this.region = region ? `&region=${region}` :'';
+  //   return await fetch(
+  //     `${BASE_URL}search/movie?api_key=${API_KEY}&language=${this.language}&query=${this.searchQuery}&page=${this.page}&include_adult=${this.adult}`
+  //     + `${this.year}`+`${this.region}`)
+  //   .then((r)=>r.json())
+  // }
 
 
   // сбрасывает значение страниц запроса на первую
-  resetPage() {
-    this.page = 1;
-  }
+  // resetPage() {
+  //   this.page = 1;
+  // }
 
   //   геттер значения запроса => из инпута
   get query() {

@@ -1,7 +1,5 @@
 // import debounce from 'lodash/debounce';
 import FilmsApiService from './api-content.js';
-// import filmTpl from '../templates/home.hbs';
-// import maktup from '../templates/maktup.hbs';
 import { refs } from './variables.js';
 import { showSpinner } from './spinner';
 import {makeFilmsWithGenres} from './home-button';
@@ -20,16 +18,6 @@ function onSearch(evt) {
 
   // записывает значение инпута в api
   newFilmsApi.searchQuery = query;
-
-  // сбрасывает счетчик страниц запроса
-  // newFilmsApi.resetPage();
-
-  //возвращвет объект фильма по id
-  // Для запроса информации о фильме => записать id текущего фильма в newFilmsApi.filmId
-  // по умолчанию функция вернет => "Леди Баг и Супер Кот"
-  // newFilmsApi.fetchInformationAboutFilm();
-
-  // возвращает массив фильмов по запросу
   newFilmsApi.fetchQueryFilms().then(renderCard).catch(err);
   // возвращает массив трендовых видосов
   // newFilmsApi.fetchTrendsFilms();
@@ -54,29 +42,6 @@ function err() {
   refs.nothSearch.classList.remove('nothing-search__hidden');
   refs.cardsList.innerHTML = '';
 }
-
-//? неробочий update пошуку фільмів
-
-// refs.searchInput.addEventListener('input', debounce(indentifyValue, 700));
-
-// function indentifyValue(ev) {
-//   const textOfInput = ev.target.value.trim();
-//   if (textOfInput.length < 1) {
-//     return alert('Nothing matches to search');
-//   }
-//   return newFilmsApi.fetchQueryFilms(textOfInput).then(textOfInput =>
-//     textOfInput.length <= 10 && textOfInput.length >= 2
-//       ? createMaktup(textOfInput)
-//       : textOfInput.length === 1
-//         ? renderCard(textOfInput)
-//         : alert('Too many matches found. Please enter a more specific query'),
-//   );
-// }
-
-// function createMaktup(mak) {
-//   refs.cardsList.innerHTML = maktup(mak)
-// }
-
 
 
 //* pagination
