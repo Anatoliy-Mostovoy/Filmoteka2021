@@ -51,12 +51,13 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 30%);
 .main-content-list.empty-main{
   min-height: 0;
   @media screen and (min-width: $tablet) {
-    min-height: 23vh;
+    min-height: 124px;
   }
   @media screen and (min-width: $desktop) {
-    min-height: 60vh;
+    min-height: 393px;
       };
 }
+
 
 .main-container.empty-main {
   min-height: 0;
