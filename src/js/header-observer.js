@@ -1,7 +1,7 @@
 import { refs } from './variables';
 
 const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader,
-   userButton, backgroundEmpty, cardsList, mainContainer, wBtn,  qBtn} = refs;
+   userButton, backgroundEmpty, cardsList, mainContainer, wBtn,  qBtn, paginationBlock} = refs;
 
 const callback = entries => {
   entries.forEach(entry => {
@@ -56,6 +56,8 @@ export function checkIfEmptyLibrary () {
         backgroundEmpty.classList.remove('hidden');
         cardsList.classList.add('empty-main');
         mainContainer.classList.add('empty-main');
+        paginationBlock.classList.add('hidden');
+
 
        
 } else {
@@ -68,44 +70,49 @@ export function checkIfEmptyLibrary () {
       backgroundEmpty.classList.add('hidden');
       cardsList.classList.remove('empty-main');
       mainContainer.classList.remove('empty-main');
+      paginationBlock.classList.remove('hidden');
     }
   }
 }
 
-wBtn.addEventListener('click', emptyWatched);
-qBtn.addEventListener('click', emptyQueue);
+// wBtn.addEventListener('click', emptyWatched);
+// qBtn.addEventListener('click', emptyQueue);
 
 //empty-watch
 
-function emptyWatched() {
+export function emptyWatched() {
    backgroundEmpty.classList.add('hidden');
   if (localStorage.getItem('watched') === null || localStorage.getItem('watched')&&localStorage.getItem('watched').length<3) {
     backgroundEmpty.classList.add('empty-choice');
     backgroundEmpty.classList.remove('hidden');
     cardsList.classList.add('empty-choice');
     mainContainer.classList.add('empty-choice');
+    paginationBlock.classList.add('hidden');
   }
   else {
     backgroundEmpty.classList.remove('empty-choice');
     backgroundEmpty.classList.add('hidden');
     cardsList.classList.remove('empty-choice');
     mainContainer.classList.remove('empty-choice');
+    paginationBlock.classList.remove('hidden');
   }
 }
 
-function emptyQueue() {
+export function emptyQueue() {
   backgroundEmpty.classList.add('hidden');
  if (localStorage.getItem('queue') === null || localStorage.getItem('queue')&&localStorage.getItem('queue').length<3) {
    backgroundEmpty.classList.add('empty-choice');
    backgroundEmpty.classList.remove('hidden');
    cardsList.classList.add('empty-choice');
    mainContainer.classList.add('empty-choice');
+   paginationBlock.classList.add('hidden');
  }
  else {
    backgroundEmpty.classList.remove('empty-choice');
    backgroundEmpty.classList.add('hidden');
    cardsList.classList.remove('empty-choice');
    mainContainer.classList.remove('empty-choice');
+   paginationBlock.classList.remove('hidden');
  }
 }
 

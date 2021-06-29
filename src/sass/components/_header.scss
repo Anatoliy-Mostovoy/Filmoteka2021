@@ -66,8 +66,17 @@
 
 .hidden {
   position: absolute;
+  display: none;
+  width: 0px;
+  height: 0px;
+  margin: 0;
+  clip: rect(0 0 0 0); 
+}
 
- // display: none;
+.visually-hidden {
+  position: absolute;
+  padding: 0;
+  opacity: 0;
   width: 0px;
   height: 0px;
   margin: 0;
