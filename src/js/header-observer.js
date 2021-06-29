@@ -1,7 +1,7 @@
 import { refs } from './variables';
 
 const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader,
-   userButton, backgroundEmpty, cardsList, mainContainer, wBtn,  qBtn, paginationBlock} = refs;
+   userButton, backgroundEmpty, cardsList, mainContainer, paginationBlock} = refs;
 
 const callback = entries => {
   entries.forEach(entry => {
@@ -42,7 +42,7 @@ function removeClassByobserver() {
   
    
 }
-// myLibraryButton.addEventListener('click', checkIfEmptyLibrary)
+
 
 export function checkIfEmptyLibrary () {
     if (localStorage.getItem('watched') === null && localStorage.getItem('queue')=== null ||
@@ -74,9 +74,6 @@ export function checkIfEmptyLibrary () {
     }
   }
 }
-
-// wBtn.addEventListener('click', emptyWatched);
-// qBtn.addEventListener('click', emptyQueue);
 
 //empty-watch
 
