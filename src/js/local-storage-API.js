@@ -35,7 +35,6 @@ function getId(element) {
 
 //* добавляем id фильма в WATCHED (localStorageWatched)
 function addToLocalStorageWatchedOrQueue(element, action) {
-    element.textContent = `remove to ${action}`;
     const nameIds = action;
     const liId = getId(element)
     addArrOfIds(nameIds)
@@ -123,14 +122,14 @@ function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
              element.classList.add(currentButtonClass)
 
              const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
-            removeElement.classList.remove(currentButtonClass)
+            removeElement.classList.remove(currentButtonClass);
+            element.textContent = `remove to ${action}`;
+            removeElement.textContent = `add to ${actionRemove}`
             //* тут перепірку
             if (identif) {
                 // ремув перевірка!!!!
                 addUserLibraryDB(element.dataset.action, action);
-                element.textContent = `remove to ${action}`;
                 removeUserLibraryDB(removeElement.dataset.action, actionRemove);
-                removeElement.textContent = `add to ${action}`
                 //* ремув юля  - добавить фильм в очередь
                 // return;
             } else {
@@ -139,10 +138,10 @@ function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
             }
         } else {
             element.classList.remove(currentButtonClass);
+            element.textContent = `add to ${action}`;
             if(identif){
                 ////* ремув юля  - удалить  фильм из очереди
                 removeUserLibraryDB(element.dataset.action, action);
-                element.textContent = `add to ${action}`;
                 return;
             };
                 removeFromLocalStorage(element, action);
@@ -150,7 +149,7 @@ function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
 }
 
 function removeFromLocalStorage(element, action) {
-    element.textContent = `add to ${action}`;
+
     const storageElement = addArrOfIds(action);
     const elementId = element.dataset.action;
     const searchId = storageElement.indexOf(elementId);
