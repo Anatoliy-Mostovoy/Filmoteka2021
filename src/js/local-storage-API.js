@@ -4,16 +4,12 @@ import {showSpinner} from './spinner'
 import {updateUserLibrary} from './fb';
 //* экземпляр класса API
 
-const { bodyEl, cardsList, wBtn, qBtn} = refs;
+const { bodyEl, cardsList } = refs;
  //* поиск id фильма
 bodyEl.addEventListener('click', testWhatButtonIsIt);
-wBtn.addEventListener('click', renderWatched);
-qBtn.addEventListener('click', renderQueue);
-// myLibraryButton.addEventListener('click', onMyLibraryButtonClick)
 
 export let library = [];
 let arrOfIds = [];
-let currentButtonSwitch = null;
 const currentButtonClass = 'current-header-btn';
 
 function testWhatButtonIsIt(e) {
@@ -74,12 +70,14 @@ export function renderMyLibrary() {
 
 export function addOrRemoveOnOpenModal(action) {
     const element = document.querySelector(`[data-modal="${action}"]`);
+    let testOnLocal = true;
     if(localStorage.getItem('firebase:host:filmoteka-84a5d-default-rtdb.firebaseio.com')){
         //* юля встав функцію
-        // const testOnLocal = 
+        //  testOnLocal = 
         return;
     }else{
-        const testOnLocal = testOLocal(element, action);
+
+         testOnLocal = testOLocal(element, action);
     }
     element.textContent = testOnLocal ? `remove to ${action}` : `add to ${action}`;
     if(testOnLocal){
