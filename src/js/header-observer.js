@@ -1,7 +1,7 @@
 import { refs } from './variables';
 
 const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader,
-   userButton, backgroundEmpty, cardsList, mainContainer} = refs;
+   userButton, backgroundEmpty, cardsList, mainContainer, wBtn,  qBtn} = refs;
 
 const callback = entries => {
   entries.forEach(entry => {
@@ -71,3 +71,41 @@ export function checkIfEmptyLibrary () {
     }
   }
 }
+
+wBtn.addEventListener('click', emptyWatched);
+qBtn.addEventListener('click', emptyQueue);
+
+//empty-watch
+
+function emptyWatched() {
+   backgroundEmpty.classList.add('hidden');
+  if (localStorage.getItem('watched') === null || localStorage.getItem('watched')&&localStorage.getItem('watched').length<3) {
+    backgroundEmpty.classList.add('empty-choice');
+    backgroundEmpty.classList.remove('hidden');
+    cardsList.classList.add('empty-choice');
+    mainContainer.classList.add('empty-choice');
+  }
+  else {
+    backgroundEmpty.classList.remove('empty-choice');
+    backgroundEmpty.classList.add('hidden');
+    cardsList.classList.remove('empty-choice');
+    mainContainer.classList.remove('empty-choice');
+  }
+}
+
+function emptyQueue() {
+  backgroundEmpty.classList.add('hidden');
+ if (localStorage.getItem('queue') === null || localStorage.getItem('queue')&&localStorage.getItem('queue').length<3) {
+   backgroundEmpty.classList.add('empty-choice');
+   backgroundEmpty.classList.remove('hidden');
+   cardsList.classList.add('empty-choice');
+   mainContainer.classList.add('empty-choice');
+ }
+ else {
+   backgroundEmpty.classList.remove('empty-choice');
+   backgroundEmpty.classList.add('hidden');
+   cardsList.classList.remove('empty-choice');
+   mainContainer.classList.remove('empty-choice');
+ }
+}
+
