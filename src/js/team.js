@@ -3,13 +3,12 @@ import teamMarkup from '../templates/team.hbs'
 import listOfTeam from '../partials/team.json'
 const { backdropTeam, bodyEl, teamClose, linkStudents, listTeam } = refs;
 
-console
-listTeam.innerHTML = teamMarkup(listOfTeam);
 backdropTeam.addEventListener('click', closeCard);
 linkStudents.addEventListener('click', openModal);
 
 
 function openModal() {
+  listTeam.innerHTML = teamMarkup(listOfTeam);
   linkStudents.removeEventListener('click', openModal); 
   backdropTeam.classList.remove('backdrop-hidden');  
 }
