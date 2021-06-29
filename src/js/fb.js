@@ -63,7 +63,29 @@ export function readUserLibrary() {
   return database.ref(`users/${userId}`).once('value')
 };
 
-// ----------------------------------
+// ----------------------------
+export async function readWatchedDB() {
+  const queryDataLibrary = await readUserLibrary()
+  const dataLibrary = queryDataLibrary.val()
+
+  if (dataLibrary.watched[0] == '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export async function readQueueDB() {
+  const queryDataLibrary = await readUserLibrary()
+  const dataLibrary = queryDataLibrary.val()
+
+  if (dataLibrary.queue[0] == '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 
 // функция отрисовки MyLibraryDB
 async function renderLibraryDB() {
@@ -148,15 +170,37 @@ export async function addUserLibraryDB(id, nameList) {
   }
 };
 
+export async function readToWatchedDB() {
+  const queryDataLibrary = await readUserLibrary()
+  const dataLibrary = queryDataLibrary.val()
+
+  if (dataLibrary.watched[0] == '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export async function readToQueueDB() {
+  const queryDataLibrary = await readUserLibrary()
+  const dataLibrary = queryDataLibrary.val()
+
+  if (dataLibrary.queue[0] == '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 // функция добавления данных в БД
 export async function removeUserLibraryDB(id, nameList) {
   const userId = firebase.auth().currentUser.uid;
   try {
     const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
-    console.log('removeUserLibraryDB', dataLibrary);
+    // console.log('removeUserLibraryDB', dataLibrary);
   
-    console.log('dataLibrary.indexOf(id)', dataLibrary.indexOf(id));
+    // console.log('dataLibrary.indexOf(id)', dataLibrary.indexOf(id));
     if (dataLibrary.length === 1) {
       dataLibrary.splice(0, 1, '');
     } else {
