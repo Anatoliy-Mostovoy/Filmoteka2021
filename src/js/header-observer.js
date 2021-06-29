@@ -1,6 +1,7 @@
 import { refs } from './variables';
 
-const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader, userButton, myLibraryButton} = refs;
+const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader,
+   userButton, backgroundEmpty, cardsList, mainContainer} = refs;
 
 const callback = entries => {
   entries.forEach(entry => {
@@ -38,6 +39,7 @@ function removeClassByobserver() {
   headerButtons.classList.remove('hidden');
   userButton.classList.remove('hidden');
   navigationHeader.classList.remove('mini-header');
+  
    
 }
 // myLibraryButton.addEventListener('click', checkIfEmptyLibrary)
@@ -51,6 +53,10 @@ export function checkIfEmptyLibrary () {
         navigationHeader.classList.add('mini-header');
         header.classList.add('empty-library');
         userButton.classList.add('header-hidden');
+        backgroundEmpty.classList.remove('hidden');
+        cardsList.classList.add('empty-main');
+        mainContainer.classList.add('empty-main');
+
        
 } else {
 
@@ -59,6 +65,9 @@ export function checkIfEmptyLibrary () {
       navigationHeader.classList.remove('mini-header');
       header.classList.remove('empty-library');
       userButton.classList.remove('header-hidden');
+      backgroundEmpty.classList.add('hidden');
+      cardsList.classList.remove('empty-main');
+      mainContainer.classList.remove('empty-main');
     }
   }
 }
