@@ -88,7 +88,11 @@ export function addOrRemoveOnOpenModal(action) {
 }
 
 function testOLocal(element, action) {
-    return JSON.parse(localStorage.getItem(`${action}`)).includes(element.getAttribute('data-action'));
+    const test = JSON.parse(localStorage.getItem(`${action}`))
+    if(test === null){
+        return false;
+    }
+    return test.includes(element.getAttribute('data-action'));
 }
 
 
