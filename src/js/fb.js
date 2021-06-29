@@ -48,7 +48,7 @@ async function renderWatchedDB() {
   paginationMyLibrary.startPagination(dataLibrary.watched);
 };
 
-// функция отрисовки списка просмотренные из БД при клике на кнопку Queue
+// функция отрисовки списка очереди из БД при клике на кнопку Queue
 async function renderQueueDB() {
   const queryDataLibrary = await readUserLibrary();
   const dataLibrary = queryDataLibrary.val()
@@ -61,9 +61,9 @@ async function renderQueueDB() {
 };
 
 // функция считыванния данных из БД
-function readUserLibrary() {
+export function readUserLibrary() {
   const userId = firebase.auth().currentUser.uid;
-  return firebase.database().ref(`users/${userId}`).once('value')
+  return database.ref(`users/${userId}`).once('value')
 };
 
 // ----------------------------------
@@ -86,7 +86,7 @@ function readUserLibrary() {
 // функция отрисовки MyLibraryDB
 async function renderLibraryDB() {
   const queryDataLibrary = await readUserLibrary()
-  console.log('rtyuiop[]==',queryDataLibrary)
+  // console.log('rtyuiop[]==',queryDataLibrary)
   const dataLibrary = queryDataLibrary.val()
 
   if (dataLibrary.watched[0] == '') {
@@ -112,17 +112,17 @@ async function renderLibraryDB() {
 export async function updateUserLibrary(id, onBtn) {
   const userId = firebase.auth().currentUser.uid;
   try {
-    const queryDataLibrary = await firebase.database().ref(`users/${userId}/${onBtn}`).once('value')
+    const queryDataLibrary = await database.ref(`users/${userId}/${onBtn}`).once('value')
     const dataLibrary = queryDataLibrary.val()
   
     if (dataLibrary[0] === '') {
       dataLibrary.splice(0, 1, id);
-      const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary);
+      const updateDataList = await database.ref(`users/${userId}/${onBtn}`).set(dataLibrary);
       // writeInBase(dataLibrary, id, onBtn);
       return;
     } else {
       dataLibrary.push(id);
-      const updateDataList = await firebase.database().ref(`users/${userId}/${onBtn}`).set(dataLibrary)
+      const updateDataList = await database.ref(`users/${userId}/${onBtn}`).set(dataLibrary)
     };
   } catch (error) {
     // console.log(error.message)
@@ -137,7 +137,7 @@ export function renderLibrary() {
       renderLibraryDB();
     } else {
       renderMyLibrary();
-      console.log('вы не авторизованы');
+      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
@@ -149,7 +149,7 @@ export function renderMyWatched() {
       renderWatchedDB();
     } else {
       renderWatched();
-      console.log('вы не авторизованы');
+      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
@@ -161,10 +161,8 @@ export function renderMyQueue() {
       renderQueueDB();
     } else {
       renderQueue();
-      console.log('вы не авторизованы');
+      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
 // // -------------------------------------------------- 
-
-//* пробую
