@@ -96,4 +96,7 @@ export const refs = {
 
   //main 
   mainContainer: document.querySelector('.js-main'),
+
+  //pagination 
+  paginationBlock: document.querySelector('.pagination-my-style'),
 };
