@@ -3,8 +3,7 @@ import { refs } from "./variables";
 export function openTrailer(e) {
   const id = e.target.parentNode.dataset.action;
     videoById(id).then((r)=> {
-        startVideo(r.results[0].key)
-        console.log('video' , r.results[0].key)}).catch(console.log);
+        startVideo(r.results[0].key)}).catch(console.log);
    } 
 
 

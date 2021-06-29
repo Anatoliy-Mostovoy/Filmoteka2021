@@ -142,3 +142,4 @@ function addToLocaleStorage(array, action) {
     localStorage.setItem(action, JSON.stringify(array));
 
 }
+
