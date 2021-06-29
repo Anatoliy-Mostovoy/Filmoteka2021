@@ -47,7 +47,7 @@ async function registration(email, password, userName) {
     // console.log(data.user.uid);
     
     alert(`Вы успешно прошли регистрацию. Добро пожаловать ${data.user.email}, ${userName}`);   /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
-    identif = true;
+    // identif = true;
     // проверить local-storage есть ли там что-то, если есть вытащить и записать в базу
     const currentUser = {
       name: userName,
@@ -68,7 +68,7 @@ async function login(email, password) {
   try {
     const data = await firebase.auth().signInWithEmailAndPassword(email, password)
     alert(`Добро пожаловать ${data.user.uid}`);          /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
-    identif = true;
+    // identif = true;
   } catch (error) {
     // console.log(error.message);
     alert(error.message);                  /* заменить на нотификашку*/
@@ -85,12 +85,11 @@ async function newUser(userId, newUser) {
     throw error
   }
 }
-// --------------------------------------------------
-export { identif };
 
 export function signInUser() {
   firebase.auth().onAuthStateChanged(async function(user) {
     if (user) {
+      identif = true;
       backdropLogIn.classList.add('backdrop-hidden');
       userButton.classList.add('js-reserved-name');
 
@@ -123,3 +122,6 @@ function signOutUser() {
  console.error('Sign Out Error', e);
 });
 };
+
+// --------------------------------------------------
+export { identif };
