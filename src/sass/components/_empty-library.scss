@@ -47,7 +47,7 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 30%);
         width: 100%; 
     }
 }
-
+//empty-Library
 .main-content-list.empty-main{
   min-height: 0;
   @media screen and (min-width: $tablet) {
@@ -58,7 +58,27 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 30%);
       };
 }
 
-
 .main-container.empty-main {
   min-height: 0;
+ }
+
+ //empty-watch and queue
+
+ .main-content-list.empty-choice{
+
+  min-height: 50px;
+  @media screen and (min-width: $tablet) {
+    min-height: 298px;
+  }
+  @media screen and (min-width: $desktop) {
+    min-height: 564px;
+      };
+}
+
+.main-container.empty-choice {
+  min-height: 0;
+ }
+
+ .background-empty.empty-choice {
+top: 220px;
  }

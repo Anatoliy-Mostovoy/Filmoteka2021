@@ -67,7 +67,7 @@
 .hidden {
   position: absolute;
 
-  display: none;
+ // display: none;
   width: 0px;
   height: 0px;
   margin: 0;
@@ -327,6 +327,10 @@
 .header.empty-library.mini-header {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.header-library .header-user {
+display: none;
 }
 
 .nothing-search__container {
