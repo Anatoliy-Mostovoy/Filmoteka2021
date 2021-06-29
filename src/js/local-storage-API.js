@@ -1,6 +1,5 @@
 import { refs } from './variables';
 import { paginationMyLibrary } from '../index';
-import {showSpinner} from './spinner'
 import {updateUserLibrary} from './fb';
 //* экземпляр класса API
 
