@@ -1,11 +1,11 @@
 import { refs } from './variables';
 const { bodyEl, textFromCatModal, backdropLogIn, closeLoginWrap, userButton } = refs;
-userButton.addEventListener('click', openLogIn);
+// userButton.addEventListener('click', openLogIn);
 textFromCatModal.addEventListener('click', openLogIn);
 import {closeToAnnoyment}  from './annoyment';
 
-function openLogIn() {
-  userButton.removeEventListener('click', openLogIn);
+export function openLogIn() {
+  // userButton.removeEventListener('click', openLogIn);
   textFromCatModal.removeEventListener('click', openLogIn);
   closeToAnnoyment();
 
@@ -20,7 +20,7 @@ function openLogIn() {
 
 
 function closeModal() {
-  userButton.addEventListener('click', openLogIn);
+  // userButton.addEventListener('click', openLogIn);
 textFromCatModal.addEventListener('click', openLogIn);
   bodyEl.classList.remove('scroll-hidden');
   backdropLogIn.classList.add('backdrop-hidden');

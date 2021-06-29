@@ -35,6 +35,8 @@ import './js/btn-listeren-q-w'
 onPopularRender();
 // import './js/pagination-for-my-library';
 
+import { signInUser } from './js/autentification'
+window.addEventListener("load", signInUser);
 
 
 // ApiService.filmPopular().then(console.log)

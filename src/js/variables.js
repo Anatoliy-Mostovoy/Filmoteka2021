@@ -85,6 +85,12 @@ export const refs = {
   // user-button
   userButton: document.querySelector('.js-user-button'),
 
+  // user name
+  userNameLogin: document.querySelector('.js-name-user-login'),
+
+  // sign Out user
+  signOut: document.querySelector('.js-signout-user'),
+
   //list-team
   listTeam : document.querySelector('.list-team'),
 };

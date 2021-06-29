@@ -5,12 +5,12 @@ import 'firebase/storage'
 import 'firebase/messaging'
 
 import { refs } from "./variables"
-import { database } from './fb';
+import { database, readUserLibrary } from './fb'
 
-// import { database } from './fb'
+import { openLogIn } from './log-in'
 
 let identif = false;
-const { formSignup, formSigning, backdropLogIn } = refs;
+const { formSignup, formSigning, backdropLogIn, userButton, userNameLogin, signOut } = refs;
 
 // const resetPass = document.querySelector('.js-forgot-pass');
 
@@ -40,9 +40,6 @@ function onRegister(evt) {
   };
 };
 
-//  Firebase
-// --------------------------------------------------------
-// регистрация/аутентификация пользователя
 // функция регистрации нового пользователя в firebase
 async function registration(email, password, userName) {
   try {
@@ -51,8 +48,6 @@ async function registration(email, password, userName) {
     
     alert(`Вы успешно прошли регистрацию. Добро пожаловать ${data.user.email}, ${userName}`);   /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
     identif = true;
-    backdropLogIn.classList.add('backdrop-hidden');
-
     // проверить local-storage есть ли там что-то, если есть вытащить и записать в базу
     const currentUser = {
       name: userName,
@@ -60,6 +55,7 @@ async function registration(email, password, userName) {
       queue: [''],
     }
     newUser(data.user.uid, currentUser);            /*вызов функции записи нового пользователя в базу данных firebase*/
+    // signInUser();
   } catch (error) {
     // console.log(error.message);
     alert(`${error.message}`);         /* заменить на нотификашку*/
@@ -71,10 +67,8 @@ async function registration(email, password, userName) {
 async function login(email, password) {
   try {
     const data = await firebase.auth().signInWithEmailAndPassword(email, password)
-    // console.log(data.user);
-    alert(`Добро пожаловать ${data.user.email}`);          /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
+    alert(`Добро пожаловать ${data.user.uid}`);          /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
     identif = true;
-    backdropLogIn.classList.add('backdrop-hidden');
   } catch (error) {
     // console.log(error.message);
     alert(error.message);                  /* заменить на нотификашку*/
@@ -91,5 +85,41 @@ async function newUser(userId, newUser) {
     throw error
   }
 }
-// // --------------------------------------------------
+// --------------------------------------------------
 export { identif };
+
+export function signInUser() {
+  firebase.auth().onAuthStateChanged(async function(user) {
+    if (user) {
+      backdropLogIn.classList.add('backdrop-hidden');
+      userButton.classList.add('js-reserved-name');
+
+      const queryDataLibrary = await readUserLibrary();
+      const userName = queryDataLibrary.val().name;
+
+      userNameLogin.textContent = userName;
+
+      signOut.addEventListener('click', signOutUser);
+      userButton.removeEventListener('click', openLogIn);
+      console.log('ЗАРЕГИСТРИРОВАН из вторизации', firebase.auth().currentUser.uid);
+    } else {
+      signOut.removeEventListener('click', signOutUser);
+      userButton.addEventListener('click', openLogIn);
+      console.log('НЕ ЗАРЕГИСТРИРОВАН signInUser');
+      return;
+    }
+  })
+};
+
+// // функция выхода из системы 
+function signOutUser() {
+  firebase.auth().signOut()
+  .then(() => {
+    userButton.classList.remove('js-reserved-name');
+    userNameLogin.textContent = 'Guest User';
+    console.log('Signed Out');
+  })
+.catch(e=>{
+ console.error('Sign Out Error', e);
+});
+};
