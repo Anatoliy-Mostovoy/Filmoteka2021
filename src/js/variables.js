@@ -1,7 +1,4 @@
 export const refs = {
-  tolik: 5,
-  // * ref на main-container
-  mainContent: document.querySelector('.js-main'),
   //* на список з картками фільмів
   cardsList: document.querySelector('.js-main-content-list'),
   //* на кнопки для гортання сторінок з фільмами

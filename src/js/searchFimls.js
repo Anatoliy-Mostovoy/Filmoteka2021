@@ -1,7 +1,7 @@
-import debounce from 'lodash/debounce';
+// import debounce from 'lodash/debounce';
 import FilmsApiService from './api-content.js';
-import filmTpl from '../templates/home.hbs';
-import maktup from '../templates/maktup.hbs';
+// import filmTpl from '../templates/home.hbs';
+// import maktup from '../templates/maktup.hbs';
 import { refs } from './variables.js';
 import { showSpinner } from './spinner';
 import {makeFilmsWithGenres} from './home-button';
