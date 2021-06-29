@@ -55,7 +55,7 @@ export const refs = {
   spinner: document.querySelector('.js-spinner-container'),
 
   //text From Cat Modal
-  textFromCatModal: document.querySelector('.titleText'),
+  textFromCatModal: document.querySelector('.title-text'),
 
   //modal login
   backdropLogIn: document.querySelector('.backdrop-log-in'),
@@ -90,4 +90,10 @@ export const refs = {
 
   //list-team
   listTeam : document.querySelector('.list-team'),
+
+  //background-empty
+  backgroundEmpty: document.querySelector('.background-empty'),
+
+  //main 
+  mainContainer: document.querySelector('.js-main'),
 };

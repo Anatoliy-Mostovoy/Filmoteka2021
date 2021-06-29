@@ -6,7 +6,7 @@ const { annoymentModal, closeAnnoyment, overlay } = refs;
 
 let promDelay = 5000;
     let timeOpenedModal = 20000;
-const MAX_PROMT_MODAL = 3;
+const MAX_PROMT_MODAL = 5;
 let userSubscribed = false;
 let timerCloseModal = null;
 let timerOpenModal = null;

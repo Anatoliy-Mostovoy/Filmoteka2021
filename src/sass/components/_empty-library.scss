@@ -1,6 +1,6 @@
-.empty-library{
+.background-empty{
     position: absolute;
-    top: 250px;
+    top: 50px;
     left: 50%;
   transform: translateX(-50%);
 
@@ -47,3 +47,17 @@ background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 30%);
         width: 100%; 
     }
 }
+
+.main-content-list.empty-main{
+  min-height: 0;
+  @media screen and (min-width: $tablet) {
+    min-height: 23vh;
+  }
+  @media screen and (min-width: $desktop) {
+    min-height: 60vh;
+      };
+}
+
+.main-container.empty-main {
+  min-height: 0;
+ }
