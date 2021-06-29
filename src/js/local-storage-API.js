@@ -1,8 +1,11 @@
 import { refs } from './variables';
-import { paginationMyLibrary } from '../index';
-import {updateUserLibrary} from './fb';
+import { paginationMyLibrary} from '../index';
+import { addUserLibraryDB, removeUserLibraryDB, testIncludeFilm } from './fb';
+import { testInclude } from './fb'
 //* экземпляр класса API
+import { identif } from './autentification'
 
+console.log('testIncludeFilm',testIncludeFilm);
 const { bodyEl, cardsList } = refs;
  //* поиск id фильма
 bodyEl.addEventListener('click', testWhatButtonIsIt);
@@ -67,16 +70,35 @@ export function renderMyLibrary() {
     paginationMyLibrary.startPagination(allIds);
 }
 
+// -------------------------------------------------------------
+let testOnLocal = true;
+function test(res) {
+    return testOnLocal = res;
+    
+}
 export function addOrRemoveOnOpenModal(action) {
     const element = document.querySelector(`[data-modal="${action}"]`);
-    let testOnLocal = true;
-    if(localStorage.getItem('firebase:host:filmoteka-84a5d-default-rtdb.firebaseio.com')){
-        //* юля встав функцію
-        //  testOnLocal = 
+    
+    if(identif){
+        // //* юля встав функцію
+        testIncludeFilm(element.dataset.action, action).then(res => {
+            // test(res);
+            if (res) {
+                // testOnLocal = true;
+                element.classList.add(currentButtonClass)
+                element.textContent = `remove to ${action}`;
+            } else {
+                element.textContent = `add to ${action}`; // testOnLocal = false;
+                element.classList.remove(currentButtonClass)
+            }
+            // element.textContent = res ? `remove to ${action}` : `add to ${action}`;
+        })
+        // console.log('testOnLoca зайшло', testOnLocal);
         return;
+        // -----------------------------------------------------------
     }else{
 
-         testOnLocal = testOLocal(element, action);
+        testOnLocal = testOLocal(element, action);
     }
     element.textContent = testOnLocal ? `remove to ${action}` : `add to ${action}`;
     if(testOnLocal){
@@ -103,21 +125,28 @@ function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
              const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
             removeElement.classList.remove(currentButtonClass)
             //* тут перепірку
-            if(localStorage.getItem('firebase:host:filmoteka-84a5d-default-rtdb.firebaseio.com')){
-                updateUserLibrary(element.dataset.action, action);
-                //* ремув юля
+            if (identif) {
+                // ремув перевірка!!!!
+                addUserLibraryDB(element.dataset.action, action);
+                element.textContent = `remove to ${action}`;
+                removeUserLibraryDB(removeElement.dataset.action, actionRemove);
+                removeElement.textContent = `add to ${action}`
+                //* ремув юля  - добавить фильм в очередь
+                // return;
+            } else {
+                addToLocalStorageWatchedOrQueue(element, action)
+                removeFromLocalStorage(removeElement, actionRemove);
+            }
+        } else {
+            element.classList.remove(currentButtonClass);
+            if(identif){
+                ////* ремув юля  - удалить  фильм из очереди
+                removeUserLibraryDB(element.dataset.action, action);
+                element.textContent = `add to ${action}`;
                 return;
             };
-            addToLocalStorageWatchedOrQueue(element, action)
-             removeFromLocalStorage(removeElement, actionRemove);
-            }else{
-                element.classList.remove(currentButtonClass);
-                if(localStorage.getItem('firebase:host:filmoteka-84a5d-default-rtdb.firebaseio.com')){
-                    //*remove юля
-                    return;
-                };
                 removeFromLocalStorage(element, action);
-            };
+        };
 }
 
 function removeFromLocalStorage(element, action) {

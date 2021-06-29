@@ -12,9 +12,6 @@ import { renderMyLibrary } from './local-storage-API'
 import { renderWatched } from './local-storage-API'
 import { renderQueue } from './local-storage-API'
 
-import { showSpinner } from './spinner';
-import { filmiId } from './f-get-id-film';
-
 // файл конфигурации web app's Firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyCeeGI9asqn4tm9e6RPTw7398rO1eRYinY',
@@ -31,7 +28,7 @@ const database = firebase.database();
 export { database };
 
 const { myLibraryButton, cardsList, bodyEl} = refs;
-
+export const testInclude = false;
 
 // функция отрисовки списка просмотренные из БД при клике на кнопку Watched
 async function renderWatchedDB() {
@@ -67,21 +64,6 @@ export function readUserLibrary() {
 };
 
 // ----------------------------------
-// ------------------------------------
-// export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
-
-//   // console.log(event);
-//   if (evt.target.classList.contains('js-watched')) {
-//     // console.log('нажал watched');
-//     updateUserLibrary(filmiId, 'watched');
-//   }
-
-//   if (evt.target.classList.contains('js-queue')) {
-//     // console.log('нажал queue');
-//     updateUserLibrary(filmiId, 'queue');
-
-//   };
-// };
 
 // функция отрисовки MyLibraryDB
 async function renderLibraryDB() {
@@ -107,23 +89,82 @@ async function renderLibraryDB() {
   }
 };
 
+// --------------------------------
+// export function onClikBtnFilmModal(evt) {                  /*функция проверки на какую кнопку нажал пользователь watched или queue*/
 
-// функция обновления данных в БД
-export async function updateUserLibrary(id, onBtn) {
+//   // console.log(event);
+//   if (evt.target.classList.contains('js-watched')) {
+//     // console.log('нажал watched');
+//     updateUserLibrary(filmiId, 'watched');
+//   }
+
+//   if (evt.target.classList.contains('js-queue')) {
+//     // console.log('нажал queue');
+//     updateUserLibrary(filmiId, 'queue');
+
+//   };
+// };
+
+
+export async function testIncludeFilm(filmId, nameList) {
   const userId = firebase.auth().currentUser.uid;
   try {
-    const queryDataLibrary = await database.ref(`users/${userId}/${onBtn}`).once('value')
+    const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
+    const dataLibrary = queryDataLibrary.val()
+    console.log('Я зайшов в перевірку', dataLibrary)
+  
+    if (dataLibrary.includes(filmId)) {
+      // testInclude = true;
+      return true;
+    } else {
+      // testInclude = false;
+      return false;
+    }
+  } catch (error) {
+    // console.log(error.message)
+    throw error
+  }
+}
+// --------------------------------------
+
+// функция добавления данных в БД
+export async function addUserLibraryDB(id, nameList) {
+  const userId = firebase.auth().currentUser.uid;
+  try {
+    const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
   
     if (dataLibrary[0] === '') {
       dataLibrary.splice(0, 1, id);
-      const updateDataList = await database.ref(`users/${userId}/${onBtn}`).set(dataLibrary);
-      // writeInBase(dataLibrary, id, onBtn);
+      const updateDataList = await database.ref(`users/${userId}/${nameList}`).set(dataLibrary);
       return;
     } else {
       dataLibrary.push(id);
-      const updateDataList = await database.ref(`users/${userId}/${onBtn}`).set(dataLibrary)
+      const updateDataList = await database.ref(`users/${userId}/${nameList}`).set(dataLibrary)
     };
+  } catch (error) {
+    // console.log(error.message)
+    throw error
+  }
+};
+
+// функция добавления данных в БД
+export async function removeUserLibraryDB(id, nameList) {
+  const userId = firebase.auth().currentUser.uid;
+  try {
+    const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
+    const dataLibrary = queryDataLibrary.val()
+    console.log('removeUserLibraryDB', dataLibrary);
+  
+    console.log('dataLibrary.indexOf(id)', dataLibrary.indexOf(id));
+    if (dataLibrary.length === 1) {
+      dataLibrary.splice(0, 1, '');
+    } else {
+      dataLibrary.splice(dataLibrary.indexOf(id), 1);
+    };
+
+    const updateDataList = await database.ref(`users/${userId}/${nameList}`).set(dataLibrary);
+
   } catch (error) {
     // console.log(error.message)
     throw error
