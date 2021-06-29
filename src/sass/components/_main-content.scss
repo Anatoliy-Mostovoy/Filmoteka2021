@@ -7,18 +7,18 @@ body {
   min-height: 90vh;
   background-color: #fff;
   padding-bottom: 40px;
-  padding-top: 20px;
+  padding-top: 1px;
 
   @media screen and (min-width: $tablet) {
     padding-bottom: 60px;
-    padding-top: 60px;
+    padding-top: 1px;
   }
 }
 
 .main-content-list {
   position: relative;
   min-height: 80vh;
-  margin-top: 230px;
+  margin-top: 290px;
 
   @media screen and (min-width: $tablet) {
     display: flex;

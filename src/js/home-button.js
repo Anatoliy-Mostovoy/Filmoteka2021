@@ -155,6 +155,7 @@ import { renderLibrary } from './fb'
 
 import { showSpinner } from './spinner';
 import { checkIfEmptyLibrary } from './header-observer';
+import {  removeCurrentOnButton} from './btn-listeren-q-w';
 var pagination = require('./maryska');
 console.log('МАРИСЬКИ ПРАЦЮЄ');
 
@@ -193,20 +194,15 @@ function onMyLibraryButtonClick(e) {
 
   refs.nothSearch.classList.add('nothing-search__hidden');
 
-  // renderMyLibrary(e)
   renderLibrary();
-
-
+  removeCurrentOnButton(e);
+  checkIfEmptyLibrary();
   refs.cardsList.setAttribute('data-list', 'library');
-
 }
 
 function onHomeButtonClick(e) {
   showSpinner();
-  //! ТУТ ТРЕБА УЗГОДИТИ!!!!!!
-  // refs.myLibraryButton.addEventListener('click', onMyLibraryButtonClick);
-  // refs.homeButton.removeEventListener('click', onHomeButtonClick);
-
+ 
   refs.myLibraryButton.classList.remove('current');
   refs.homeButton.classList.add('current');
 

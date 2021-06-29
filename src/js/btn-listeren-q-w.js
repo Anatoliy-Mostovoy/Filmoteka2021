@@ -31,7 +31,7 @@ function addCurrentOnButton(e) {
     e.target.classList.add('current-header-btn');
     currentButtonSwitch = e.target;
 }
-function removeCurrentOnButton(e) {
+export function removeCurrentOnButton(e) {
     if(currentButtonSwitch === null)return;
     currentButtonSwitch.classList.remove('current-header-btn');
 }
