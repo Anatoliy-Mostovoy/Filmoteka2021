@@ -1,4 +1,3 @@
-import { refs } from './variables.js'
 const API_KEY = 'f4d5ed62044715aa9c5e4de0663d29b2';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 

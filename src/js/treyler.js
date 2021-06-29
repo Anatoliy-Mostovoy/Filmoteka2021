@@ -1,5 +1,4 @@
 import { refs } from "./variables";
-import trailerScript from '../templates/player.hbs';
    refs.player.addEventListener('click', closeVideo)
 export function openTrailer(e) {
   const id = e.target.parentNode.dataset.action;
