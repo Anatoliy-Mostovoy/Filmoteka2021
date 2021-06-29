@@ -3,14 +3,16 @@ import { renderMyQueue } from './fb'
 import { renderMyWatched } from './fb'
 import {showSpinner} from './spinner';
 const {  wBtn, qBtn } = refs;
-
+import {emptyWatched, emptyQueue} from './header-observer';
 let currentButtonSwitch = null;
 
 wBtn.addEventListener('click', renderWatched);
 qBtn.addEventListener('click', renderQueue);
 
+
 // * Функция callback при нажатии на кнопку Watched
 function renderWatched(e) {
+    emptyWatched()
     e.preventDefault();
     showSpinner();
     removeCurrentOnButton(e);
@@ -21,6 +23,7 @@ function renderWatched(e) {
 
 //* Функция рендера списка Queue
 function renderQueue(e) {
+    emptyQueue()
     e.preventDefault();
     showSpinner();
     removeCurrentOnButton(e)

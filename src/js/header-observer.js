@@ -1,5 +1,5 @@
 import { refs } from './variables';
-
+import { identif } from './autentification';
 const { header, searchForm, headerButtons, navigationHeader, buttonBlockHeader,
    userButton, backgroundEmpty, cardsList, mainContainer, paginationBlock} = refs;
 
@@ -45,6 +45,10 @@ function removeClassByobserver() {
 
 
 export function checkIfEmptyLibrary () {
+  if(identif){
+    console.log('tut library')
+    return;
+  }
     if (localStorage.getItem('watched') === null && localStorage.getItem('queue')=== null ||
     localStorage.getItem('watched')&&localStorage.getItem('queue') &&localStorage.getItem('watched').length<3 && localStorage.getItem('queue').length<3 ||
     localStorage.getItem('watched')&&localStorage.getItem('watched').length<3&&localStorage.getItem('queue')=== null ||
@@ -78,6 +82,11 @@ export function checkIfEmptyLibrary () {
 //empty-watch
 
 export function emptyWatched() {
+  if(identif){
+    console.log('tut watched')
+    return;
+  }
+
    backgroundEmpty.classList.add('hidden');
   if (localStorage.getItem('watched') === null || localStorage.getItem('watched')&&localStorage.getItem('watched').length<3) {
     backgroundEmpty.classList.add('empty-choice');
@@ -96,6 +105,11 @@ export function emptyWatched() {
 }
 
 export function emptyQueue() {
+  if(identif){
+    console.log('tut queue')
+    return;
+  }
+
   backgroundEmpty.classList.add('hidden');
  if (localStorage.getItem('queue') === null || localStorage.getItem('queue')&&localStorage.getItem('queue').length<3) {
    backgroundEmpty.classList.add('empty-choice');
