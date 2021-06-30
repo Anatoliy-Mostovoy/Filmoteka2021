@@ -115,20 +115,30 @@ function testOLocal(element, action) {
 }
 
 
-function addOrRemoveTestOnButtonModal(element,action, actionRemove) {
+function addOrRemoveTestOnButtonModal(element, action, actionRemove) {
 
         if(!element.classList.contains(currentButtonClass)){
-             element.classList.add(currentButtonClass)
-
-             const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
-            removeElement.classList.remove(currentButtonClass);
+            element.classList.add(currentButtonClass)
             element.textContent = `remove to ${action}`;
+// --------------------------------
+            if (identif) {
+                // ремув перевірка!!!!
+                const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
+                if (!removeElement.classList.contains(currentButtonClass)) {
+                    addUserLibraryDB(element.dataset.action, action);  // выбранный элемент добавить в очередь
+                    return;
+                }
+            };
+// ---------------------------------------------------------
+
+            const removeElement = document.querySelector(`[data-modal="${action === 'watched' ? 'queue' : 'watched'}"]`)
+            removeElement.classList.remove(currentButtonClass);
             removeElement.textContent = `add to ${actionRemove}`
             //* тут перепірку
             if (identif) {
                 // ремув перевірка!!!!
-                addUserLibraryDB(element.dataset.action, action);
-                removeUserLibraryDB(removeElement.dataset.action, actionRemove);
+                addUserLibraryDB(element.dataset.action, action);  // выбранный элемент добавить в очередь
+                removeUserLibraryDB(removeElement.dataset.action, actionRemove);  // выбранный элемент удалить из очереди
                 //* ремув юля  - добавить фильм в очередь
                 // return;
             } else {
