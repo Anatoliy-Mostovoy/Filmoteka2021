@@ -8,7 +8,8 @@ import { refs } from "./variables"
 import { database, readUserLibrary } from './fb'
 
 import { openLogIn } from './log-in';
-import {checkingTheOpeningCondition, closeToAnnoyment} from './annoyment';
+import { checkingTheOpeningCondition, closeToAnnoyment } from './annoyment';
+import { inform, errorInfo} from './pnotify'
 
 let identif = false;
 const { formSignup, formSigning, backdropLogIn, userButton, userNameLogin, signOut } = refs;
@@ -27,7 +28,6 @@ function onLogin(evt) {
   const pass = evt.currentTarget.elements.pass.value;
 
   login(email, pass);
-  // clearTimeout(timerCloseModal);
   closeToAnnoyment();
 };
 
@@ -36,7 +36,7 @@ function onRegister(evt) {
   evt.preventDefault();
 
   if (evt.currentTarget.elements.password.value !== evt.currentTarget.elements.repeatpass.value) {
-    alert('пароли не равны');                 /* заменить на нотификашку*/
+    inform('passwords do not match, please enter the same passwords');
   } else {
     registration(evt.currentTarget.elements.email.value, evt.currentTarget.elements.password.value, evt.currentTarget.elements.username.value);
     closeToAnnoyment();
@@ -47,10 +47,8 @@ function onRegister(evt) {
 async function registration(email, password, userName) {
   try {
     const data = await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-    alert(`Вы успешно прошли регистрацию. Добро пожаловать ${data.user.email}, ${userName}`);   /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
-    // identif = true;
-    // проверить local-storage есть ли там что-то, если есть вытащить и записать в базу
+    inform('Thanks a lot for your registration!');
+    
     const currentUser = {
       name: userName,
       watched: [''],
@@ -59,8 +57,7 @@ async function registration(email, password, userName) {
     newUser(data.user.uid, currentUser);            /*вызов функции записи нового пользователя в базу данных firebase*/
     // signInUser();
   } catch (error) {
-    // console.log(error.message);
-    alert(`${error.message}`);         /* заменить на нотификашку*/
+    errorInfo(`${error.message}`);
     throw error
   };
 };
@@ -68,12 +65,13 @@ async function registration(email, password, userName) {
 // функция аутентификации зарегистрированного пользователя в firebase
 async function login(email, password) {
   try {
-    const data = await firebase.auth().signInWithEmailAndPassword(email, password)
-    alert(`Добро пожаловать ${data.user.uid}`);          /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
-    // identif = true;
+    const data = await firebase.auth().signInWithEmailAndPassword(email, password);
+    const queryDataLibrary = await readUserLibrary();
+    const userName = queryDataLibrary.val().name;
+    
+    inform(`Welcome, ${userName}`);
   } catch (error) {
-    // console.log(error.message);
-    alert(error.message);                  /* заменить на нотификашку*/
+    errorInfo(`${error.message}`);
     throw error
   }
 }
@@ -83,7 +81,7 @@ async function newUser(userId, newUser) {
   try {
     const addUser = await database.ref('users/' + userId).set(newUser)
   } catch (error) {
-    console.log(error.message)
+    errorInfo(`${error.message}`);
     throw error
   }
 }
@@ -99,15 +97,14 @@ export function signInUser() {
       userButton.classList.add('js-reserved-name');
       userNameLogin.textContent = userName;
 
+      signOut.classList.remove('hidden');
       signOut.addEventListener('click', signOutUser);
       userButton.removeEventListener('click', openLogIn);
-      console.log('ЗАРЕГИСТРИРОВАН из вторизации', firebase.auth().currentUser.uid);
       return;
     } else {
       identif = false;
       signOut.removeEventListener('click', signOutUser);
       userButton.addEventListener('click', openLogIn);
-      console.log('НЕ ЗАРЕГИСТРИРОВАН signInUser');
       checkingTheOpeningCondition()
       return;
     }
@@ -120,10 +117,11 @@ function signOutUser() {
   .then(() => {
     userButton.classList.remove('js-reserved-name');
     userNameLogin.textContent = 'Guest User';
-    console.log('Signed Out');
+    signOut.classList.add('hidden');
   })
-.catch(e=>{
- console.error('Sign Out Error', e);
+  .catch(e => {
+    errorInfo(`'Sign Out Error, ${e}`);
+  // console.error('Sign Out Error', e);
 });
 };
 

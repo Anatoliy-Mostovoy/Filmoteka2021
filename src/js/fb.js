@@ -35,7 +35,6 @@ async function renderWatchedDB() {
   const queryDataLibrary = await readUserLibrary();
 
   const dataLibrary = queryDataLibrary.val();
-  // console.log('watched', dataLibrary);
 
   if (dataLibrary.watched[0] == '') {
     cardsList.innerHTML = "";
@@ -133,7 +132,6 @@ export async function testIncludeFilm(filmId, nameList) {
   try {
     const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
-    console.log('Я зайшов в перевірку', dataLibrary)
   
     if (dataLibrary.includes(filmId)) {
       // testInclude = true;
@@ -210,9 +208,7 @@ export async function removeUserLibraryDB(id, nameList) {
   try {
     const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
-    // console.log('removeUserLibraryDB', dataLibrary);
   
-    // console.log('dataLibrary.indexOf(id)', dataLibrary.indexOf(id));
     if (dataLibrary.length === 1) {
       dataLibrary.splice(0, 1, '');
     } else {
@@ -235,7 +231,6 @@ export function renderLibrary() {
       renderLibraryDB();
     } else {
       renderMyLibrary();
-      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
@@ -247,7 +242,6 @@ export function renderMyWatched() {
       renderWatchedDB();
     } else {
       renderWatched();
-      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
@@ -259,7 +253,6 @@ export function renderMyQueue() {
       renderQueueDB();
     } else {
       renderQueue();
-      console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
