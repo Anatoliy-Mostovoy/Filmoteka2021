@@ -170,6 +170,7 @@ export async function addUserLibraryDB(id, nameList) {
   }
 };
 
+// ---------------------------
 export async function readToWatchedDB() {
   const queryDataLibrary = await readUserLibrary()
   const dataLibrary = queryDataLibrary.val()
@@ -190,6 +191,17 @@ export async function readToQueueDB() {
   } else {
     return true;
   }
+};
+
+export async function readToLibraryDB() {
+  const queryDataLibrary = await readUserLibrary()
+  const dataLibrary = queryDataLibrary.val()
+
+    if (dataLibrary.queue[0] == '' && dataLibrary.watched[0] == '') {
+      return false;
+    } else {
+      return true;
+    }
 };
 
 // функция добавления данных в БД
