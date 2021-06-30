@@ -90,18 +90,18 @@ export function signInUser() {
   firebase.auth().onAuthStateChanged(async function(user) {
     if (user) {
       identif = true;
-      backdropLogIn.classList.add('backdrop-hidden');
-      userButton.classList.add('js-reserved-name');
-
       const queryDataLibrary = await readUserLibrary();
       const userName = queryDataLibrary.val().name;
 
+      backdropLogIn.classList.add('backdrop-hidden');
+      userButton.classList.add('js-reserved-name');
       userNameLogin.textContent = userName;
 
       signOut.addEventListener('click', signOutUser);
       userButton.removeEventListener('click', openLogIn);
       console.log('ЗАРЕГИСТРИРОВАН из вторизации', firebase.auth().currentUser.uid);
     } else {
+      identif = false;
       signOut.removeEventListener('click', signOutUser);
       userButton.addEventListener('click', openLogIn);
       console.log('НЕ ЗАРЕГИСТРИРОВАН signInUser');
