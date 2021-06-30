@@ -7,7 +7,8 @@ import 'firebase/messaging'
 import { refs } from "./variables"
 import { database, readUserLibrary } from './fb'
 
-import { openLogIn } from './log-in'
+import { openLogIn } from './log-in';
+import {checkingTheOpeningCondition, closeToAnnoyment} from './annoyment';
 
 let identif = false;
 const { formSignup, formSigning, backdropLogIn, userButton, userNameLogin, signOut } = refs;
@@ -26,6 +27,8 @@ function onLogin(evt) {
   const pass = evt.currentTarget.elements.pass.value;
 
   login(email, pass);
+  // clearTimeout(timerCloseModal);
+  closeToAnnoyment();
 };
 
 // функция callback при нажатии на кнопку register
@@ -36,7 +39,7 @@ function onRegister(evt) {
     alert('пароли не равны');                 /* заменить на нотификашку*/
   } else {
     registration(evt.currentTarget.elements.email.value, evt.currentTarget.elements.password.value, evt.currentTarget.elements.username.value);
-    console.log(evt.currentTarget.elements.username.value);
+    closeToAnnoyment();
   };
 };
 
@@ -44,8 +47,7 @@ function onRegister(evt) {
 async function registration(email, password, userName) {
   try {
     const data = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    // console.log(data.user.uid);
-    
+
     alert(`Вы успешно прошли регистрацию. Добро пожаловать ${data.user.email}, ${userName}`);   /* заменить на нотификашку, добавить опознавательные знаки пребывания пользователя в системе*/
     // identif = true;
     // проверить local-storage есть ли там что-то, если есть вытащить и записать в базу
@@ -100,11 +102,13 @@ export function signInUser() {
       signOut.addEventListener('click', signOutUser);
       userButton.removeEventListener('click', openLogIn);
       console.log('ЗАРЕГИСТРИРОВАН из вторизации', firebase.auth().currentUser.uid);
+      return;
     } else {
       identif = false;
       signOut.removeEventListener('click', signOutUser);
       userButton.addEventListener('click', openLogIn);
       console.log('НЕ ЗАРЕГИСТРИРОВАН signInUser');
+      checkingTheOpeningCondition()
       return;
     }
   })

@@ -1,24 +1,33 @@
 import { refs } from "./variables";
-import { identif } from './fb'
+import { signInUser } from './autentification';
 // console.log('Oksana', identif);
 
 const { annoymentModal, closeAnnoyment, overlay } = refs;
 
 let promDelay = 5000;
     let timeOpenedModal = 20000;
-const MAX_PROMT_MODAL = 5;
+const MAX_PROMT_MODAL = 3;
 let userSubscribed = false;
-let timerCloseModal = null;
-let timerOpenModal = null;
+export let timerCloseModal = null;
+export let timerOpenModal = null;
 let counterOpenedModal = 0;
+// const identif = false;
+// function rewrite(res) {
+//    return identif = res
+// }
+    //  if (identif) {
+    //      console.log(identif)
+    // userSubscribed = true
+    //  } else {
+    //      checkingTheOpeningCondition()
+    //  }
+    // async function authentication() {
+    //     const ifAuthentication = await signInUser();
 
-     if (localStorage.getItem('userName')) {
-    userSubscribed = true
-     } else {
-         checkingTheOpeningCondition()
-     }
-
-function checkingTheOpeningCondition() {
+    //     // return await ifAuthentication().then(console.log)
+    // }
+    // authentication()
+export function checkingTheOpeningCondition() {
     if (counterOpenedModal >= MAX_PROMT_MODAL || userSubscribed === true) {
         return;
     }
@@ -46,9 +55,9 @@ function closeModal() {
 };
 
 closeAnnoyment.addEventListener('click', closeToAnnoyment);
-function closeToAnnoyment() {
+export function closeToAnnoyment() {
     clearTimeout(timerOpenModal);
+    counterOpenedModal = 3;
     closeModal();
     }
 
-export { closeToAnnoyment };
