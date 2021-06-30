@@ -89,9 +89,7 @@ export function addOrRemoveOnOpenModal(action) {
                 element.textContent = `add to ${action}`; // testOnLocal = false;
                 element.classList.remove(currentButtonClass)
             }
-            // element.textContent = res ? `remove to ${action}` : `add to ${action}`;
         })
-        // console.log('testOnLoca зайшло', testOnLocal);
         return;
         // -----------------------------------------------------------
     }else{
