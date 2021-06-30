@@ -34,15 +34,31 @@ function getId(element) {
 
 //* добавляем id фильма в WATCHED (localStorageWatched)
 function addToLocalStorageWatchedOrQueue(element, action) {
-    const nameIds = action;
     const liId = getId(element)
-    addArrOfIds(nameIds)
+    addArrOfIds(action)
     if (arrOfIds.includes(liId)) {
         return;
     }
 
     arrOfIds.push(liId);
     addToLocaleStorage(arrOfIds, action);
+    if (cardsList.dataset.list === "library" || cardsList.dataset.list === "home") {
+        return;
+    };
+
+    if (action !== cardsList.dataset.list) {
+        return;
+    }
+
+
+      paginationMyLibrary.startPagination(arrOfIds);
+      
+      if (cardsList.dataset.list === 'watched') {
+        emptyWatched()
+      }
+      if (cardsList.dataset.list === 'queue') {
+        emptyQueue()
+      }
 }
 
 //* Функция рендера списка Watched
@@ -90,6 +106,7 @@ export function addOrRemoveOnOpenModal(action) {
                 element.classList.remove(currentButtonClass)
             }
         })
+
         return;
         // -----------------------------------------------------------
     }else{
@@ -174,6 +191,9 @@ function removeFromLocalStorage(element, action) {
     }
     if (cardsList.dataset.list === 'queue') {
         emptyQueue()
+    }
+    if (action !== cardsList.dataset.list) {
+        return;
     }
     paginationMyLibrary.startPagination(storageElement);
 
