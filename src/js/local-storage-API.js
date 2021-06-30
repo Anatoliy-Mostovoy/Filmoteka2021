@@ -1,7 +1,7 @@
 import { refs } from './variables';
 import { paginationMyLibrary} from '../index';
 import { addUserLibraryDB, removeUserLibraryDB, testIncludeFilm } from './fb';
-import { testInclude } from './fb'
+
 //* экземпляр класса API
 import { identif } from './autentification';
 

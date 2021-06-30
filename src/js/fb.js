@@ -218,6 +218,7 @@ export async function removeUserLibraryDB(id, nameList) {
     } else {
       dataLibrary.splice(dataLibrary.indexOf(id), 1);
     };
+    paginationMyLibrary.startPagination(dataLibrary);
 
     const updateDataList = await database.ref(`users/${userId}/${nameList}`).set(dataLibrary);
 
