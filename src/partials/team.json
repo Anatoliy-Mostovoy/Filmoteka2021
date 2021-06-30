@@ -1,13 +1,13 @@
  [
     {"member": "Anatolii Mostovyi - Team lead",
     "name": "Anatolii Mostovyi",
-    "photo": "https://ruzoo.ru/wp-content/uploads/2014/04/%D0%95%D0%B4%D0%B0-%D0%B8-%D0%B2%D0%BE%D0%B4%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D1%88%D0%BA%D0%B8.jpg",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/tolik.jpeg?raw=true",
     "git": "https://github.com/Anatoliy-Mostovoy", 
     "substance": "The ideal leader"
     },
     {"member": "Ivan Tryhuba - Scrum master",
     "name": "Ivan Tryhuba",
-    "photo": "",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/IvanTryhuba.jpg?raw=true",
     "git": "https://github.com/ivantryhuba",
     "substance": "the Esthete"
     },
@@ -43,25 +43,25 @@
     },
     {"member": "Olga Baturina - Developer",
     "name": "Olga Baturina",
-    "photo": "",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/olga_baturina.jpg?raw=true",
     "git": "https://github.com/OlhaBaturina",
     "substance": "Cats => {return code}"
     },
     {"member": "Andriy Belinskii - Developer",
     "name": "Andrey Belinsky",
-    "photo": "",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/Andriy-Belinskii.jpg?raw=true",
     "git": "https://github.com/andriko21",
     "substance": "Always positive"
     },
     {"member": "Dmitry Mikheenko - Developer",
     "name": "Dmitry Mikheenko",
-    "photo": "",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/dima.jpg?raw=true",
     "git": "https://github.com/mikheenko-d-s",
     "substance": "Soccer lover"
     },
     {"member": "Karina Skrypka - Developer",
     "name": "Karina Skrypka",
-    "photo": "",
+    "photo": "https://github.com/Anatoliy-Mostovoy/Filmoteka2021/blob/main/src/images/team/karina.jpg?raw=true",
     "git": "https://github.com/KarinaSkrypka",
     "substance": "The busy"
     }
