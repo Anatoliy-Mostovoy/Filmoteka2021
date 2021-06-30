@@ -12,6 +12,7 @@ qBtn.addEventListener('click', renderQueue);
 
 // * Функция callback при нажатии на кнопку Watched
 function renderWatched(e) {
+    refs.cardsList.setAttribute('data-list', 'watched');
     emptyWatched()
     e.preventDefault();
     showSpinner();
@@ -19,10 +20,12 @@ function renderWatched(e) {
     addCurrentOnButton(e);
 
     renderMyWatched();
+
 }
 
 //* Функция рендера списка Queue
 function renderQueue(e) {
+    refs.cardsList.setAttribute('data-list', 'queue');
     emptyQueue()
     e.preventDefault();
     showSpinner();

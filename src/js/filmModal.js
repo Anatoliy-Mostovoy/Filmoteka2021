@@ -45,7 +45,7 @@ function openModalFilm(evt) {
 }
 
 // ЗАКРЫВАЕМ МОДАЛКУ
-function closeModal(evt) {
+export function closeModal(evt) {
    refs.modalFilmInfo.innerHTML = '';
 
   refs.bodyEl.classList.remove('scroll-hidden');
