@@ -392,6 +392,9 @@ display: none;
 
 .header-user {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   right: 20px;
   bottom: 5px;
