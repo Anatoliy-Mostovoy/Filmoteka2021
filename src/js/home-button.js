@@ -72,12 +72,13 @@ async function searchGenres(response) {
       // console.log(film);
       addGenres(film);
     });
-    refs.cardsList.setAttribute('data-list', 'home');
+
     return response.results;
   });
 }
 
 export async function onPopularRender() {
+  refs.cardsList.setAttribute('data-list', 'home');
   try {
     const res1 = await ApiService.filmPopular();
 
@@ -90,6 +91,7 @@ export async function onPopularRender() {
   } catch (error) {
     console.log(error);
   }
+
 }
 
 function render(films) {

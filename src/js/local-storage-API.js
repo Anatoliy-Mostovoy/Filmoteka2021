@@ -1,7 +1,7 @@
 import { refs } from './variables';
 import { paginationMyLibrary} from '../index';
 import { addUserLibraryDB, removeUserLibraryDB, testIncludeFilm } from './fb';
-
+import {emptyWatched, emptyQueue} from './header-observer';
 //* экземпляр класса API
 import { identif } from './autentification';
 
@@ -171,6 +171,12 @@ function removeFromLocalStorage(element, action) {
     if (cardsList.dataset.list === "library" || cardsList.dataset.list === "home") {
         return;
     };
+    if (cardsList.dataset.list === 'watched') {
+        emptyWatched()
+    }
+    if (cardsList.dataset.list === 'queue') {
+        emptyQueue()
+    }
     paginationMyLibrary.startPagination(storageElement);
 
 }

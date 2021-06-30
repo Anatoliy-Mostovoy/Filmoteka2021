@@ -11,7 +11,7 @@ import { paginationMyLibrary } from '../index'
 import { renderMyLibrary } from './local-storage-API'
 import { renderWatched } from './local-storage-API'
 import { renderQueue } from './local-storage-API'
-
+import {emptyWatched, emptyQueue} from './header-observer';
 // файл конфигурации web app's Firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyCeeGI9asqn4tm9e6RPTw7398rO1eRYinY',
@@ -133,7 +133,7 @@ export async function testIncludeFilm(filmId, nameList) {
   try {
     const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
-    console.log('Я зайшов в перевірку', dataLibrary)
+    // console.log('Я зайшов в перевірку', dataLibrary)
   
     if (dataLibrary.includes(filmId)) {
       // testInclude = true;
@@ -210,15 +210,25 @@ export async function removeUserLibraryDB(id, nameList) {
   try {
     const queryDataLibrary = await database.ref(`users/${userId}/${nameList}`).once('value')
     const dataLibrary = queryDataLibrary.val()
-    // console.log('removeUserLibraryDB', dataLibrary);
-  
-    // console.log('dataLibrary.indexOf(id)', dataLibrary.indexOf(id));
+
     if (dataLibrary.length === 1) {
       dataLibrary.splice(0, 1, '');
     } else {
       dataLibrary.splice(dataLibrary.indexOf(id), 1);
     };
-    paginationMyLibrary.startPagination(dataLibrary);
+    if (cardsList.dataset.list !== "library" && cardsList.dataset.list !== "home") {
+      if (dataLibrary[0].length > 0) {
+        paginationMyLibrary.startPagination(dataLibrary);
+      }else{
+        paginationMyLibrary.startPagination([]);
+      }
+      if (cardsList.dataset.list === 'watched') {
+        emptyWatched()
+      }
+      if (cardsList.dataset.list === 'queue') {
+        emptyQueue()
+      }
+    };
 
     const updateDataList = await database.ref(`users/${userId}/${nameList}`).set(dataLibrary);
 
@@ -247,7 +257,7 @@ export function renderMyWatched() {
       renderWatchedDB();
     } else {
       renderWatched();
-      console.log('вы не авторизованы работает Local Storadge');
+      // console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
@@ -259,7 +269,7 @@ export function renderMyQueue() {
       renderQueueDB();
     } else {
       renderQueue();
-      console.log('вы не авторизованы работает Local Storadge');
+      // console.log('вы не авторизованы работает Local Storadge');
     }
   });
 };
